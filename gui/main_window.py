@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
 )
 
 from gui.workers import VoiceWorker
+from voice.speech_queue import speech_queue
 
 
 class JarvisWindow(QWidget):
@@ -80,6 +81,10 @@ class JarvisWindow(QWidget):
 
         self.setLayout(layout)
 
+        # Speech Queue Signals
+        speech_queue.speech_started.connect(self.on_speaking)
+        speech_queue.speech_finished.connect(self.on_speech_finished)
+
     def start_listening(self):
 
         if self.thread is not None:
@@ -114,13 +119,19 @@ class JarvisWindow(QWidget):
 
         self.chat.append("")
 
-        self.status.setText("Status : Ready")
-
     def cleanup_thread(self):
 
         self.thread = None
         self.worker = None
 
+    def on_speaking(self):
+
+        self.status.setText("Status : Speaking...")
+        self.button.setEnabled(False)
+
+    def on_speech_finished(self):
+
+        self.status.setText("Status : Ready")
         self.button.setEnabled(True)
 
     def closeEvent(self, event):

@@ -46,5 +46,13 @@
     {
         "user": "Hello.",
         "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "What is python?",
+        "assistant": "PYTHON was a Cold War contingency plan of the British Government for the continuity of government in the event of nuclear war."
+    },
+    {
+        "user": "Hello.",
+        "assistant": "Hello Kalyan."
     }
 ]

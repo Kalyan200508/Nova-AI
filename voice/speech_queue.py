@@ -1,12 +1,19 @@
 from queue import Queue
 import threading
 
+from PySide6.QtCore import QObject, Signal
+
 from voice.speech_engine import speech
 
 
-class SpeechQueue:
+class SpeechQueue(QObject):
+
+    speech_started = Signal()
+    speech_finished = Signal()
 
     def __init__(self):
+        super().__init__()
+
         self.queue = Queue()
 
         self.thread = threading.Thread(
@@ -27,10 +34,13 @@ class SpeechQueue:
 
             text = self.queue.get()
 
+            self.speech_started.emit()
+
             try:
                 speech.speak(text)
 
             finally:
+                self.speech_finished.emit()
                 self.queue.task_done()
 
 

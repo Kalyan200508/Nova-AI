@@ -13,14 +13,19 @@ class VoiceWorker(QObject):
 
         print("========== WORKER START ==========")
 
-        user_text, reply = controller.process_voice()
+        try:
+            user_text, reply = controller.process_voice()
 
-        if reply and reply != "__EXIT__":
-            speech_queue.speak(reply)
+            if reply == "__EXIT__":
+                speech_queue.speak("Goodbye.")
+            elif reply:
+                speech_queue.speak(reply)
 
-        elif reply == "__EXIT__":
-            speech_queue.speak("Goodbye.")
+            self.finished.emit(user_text, reply)
 
-        print("========== WORKER END ==========")
+        except Exception as e:
+            print(f"VoiceWorker Error: {e}")
+            self.finished.emit("", "An error occurred.")
 
-        self.finished.emit(user_text, reply)
+        finally:
+            print("========== WORKER END ==========")

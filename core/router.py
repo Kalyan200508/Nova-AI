@@ -1,5 +1,6 @@
 import re
 
+from internet.engine import internet_engine
 from core.brain import brain
 from core.memory import memory
 from core.facts import facts
@@ -49,6 +50,15 @@ class Router:
             return "__EXIT__"
 
         if reply is not None:
+            memory.save(text, reply)
+            return reply
+
+        # -----------------------------
+        # INTERNET
+        # -----------------------------
+        reply = internet_engine.search(text)
+
+        if reply:
             memory.save(text, reply)
             return reply
 
