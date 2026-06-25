@@ -1,5 +1,6 @@
 import re
 
+from automation.engine import automation_engine
 from internet.engine import internet_engine
 from core.brain import brain
 from core.memory import memory
@@ -50,6 +51,15 @@ class Router:
             return "__EXIT__"
 
         if reply is not None:
+            memory.save(text, reply)
+            return reply
+
+        # -----------------------------
+        # AUTOMATION
+        # -----------------------------
+        reply = automation_engine.execute(text)
+
+        if reply:
             memory.save(text, reply)
             return reply
 
