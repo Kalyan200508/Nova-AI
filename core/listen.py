@@ -19,12 +19,15 @@ class Listener:
             compute_type="int8"
         )
 
-        # Use your laptop's built-in microphone
-        self.device = 1
+        # Use Windows default microphone
+        self.device = None
+
+        print("Using microphone:")
+        print(sd.query_devices(kind="input")["name"])
 
         print("Whisper loaded.")
 
-    def listen(self, duration=5, sample_rate=16000):
+    def listen(self, duration=4, sample_rate=16000):
 
         print("\nListening... Speak now.")
 
@@ -58,33 +61,25 @@ class Listener:
 
             segments, info = self.model.transcribe(
                 temp_name,
-                beam_size=1,
-                vad_filter=False,
-                language=None
+                language="en",
+                beam_size=5,
+                vad_filter=True,
+                temperature=0.0
             )
 
-            text = ""
+            text = " ".join(segment.text for segment in segments).strip()
 
-            for segment in segments:
-                text += segment.text + " "
-
-            text = text.strip()
-
-            print("=" * 50)
-            print("Detected Language :", info.language)
-            print("Confidence        :", info.language_probability)
-            print("Recognized Text   :", repr(text))
-            print("=" * 50)
-
-            if text == "":
-                return ""
+            print("=" * 60)
+            print("Language    :", info.language)
+            print("Probability :", info.language_probability)
+            print("Text        :", repr(text))
+            print("=" * 60)
 
             return text
 
         except Exception as e:
 
             print("Whisper Error:", e)
-
             return ""
 
         finally:

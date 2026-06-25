@@ -58,5 +58,29 @@
     {
         "user": "Open Chrome.",
         "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Hi, how are you?",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Open YouTube.",
+        "assistant": "Opening youtube."
+    },
+    {
+        "user": "Open Chrome",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open calculator.",
+        "assistant": "Opening calculator."
+    },
+    {
+        "user": "What time is it?",
+        "assistant": "The current time is 01:29 AM."
     }
 ]

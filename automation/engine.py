@@ -1,6 +1,7 @@
 import string
 
 from automation.apps import apps
+from automation.browser import browser
 
 
 class AutomationEngine:
@@ -9,17 +10,24 @@ class AutomationEngine:
 
         text = text.lower().strip()
 
-        # Remove punctuation like . , ? !
         text = text.translate(
             str.maketrans("", "", string.punctuation)
         )
 
+        # -----------------------------
+        # OPEN APPLICATIONS
+        # -----------------------------
         if text.startswith("open "):
 
-            app = text.replace("open ", "").strip()
+            item = text.replace("open ", "").strip()
 
-            if apps.open(app):
-                return f"Opening {app}."
+            # Try application first
+            if apps.open(item):
+                return f"Opening {item}."
+
+            # Then try website
+            if browser.open(item):
+                return f"Opening {item}."
 
         return None
 
