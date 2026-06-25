@@ -1,23 +1,49 @@
-import pyttsx3
-from config import VOICE_RATE, VOICE_VOLUME
+import asyncio
+import os
+import tempfile
+import threading
+
+import edge_tts
+from playsound3 import playsound
+
+VOICE = "en-IN-PrabhatNeural"
 
 
 class SpeechEngine:
+
     def __init__(self):
-        self.engine = pyttsx3.init()
+        self.lock = threading.Lock()
 
-        self.engine.setProperty("rate", VOICE_RATE)
-        self.engine.setProperty("volume", VOICE_VOLUME)
-
-        voices = self.engine.getProperty("voices")
-
-        if voices:
-            self.engine.setProperty("voice", voices[0].id)
+    async def _generate(self, text, filename):
+        communicate = edge_tts.Communicate(text=text, voice=VOICE)
+        await communicate.save(filename)
 
     def speak(self, text):
-        print(f"Jarvis: {text}")
-        self.engine.say(text)
-        self.engine.runAndWait()
+
+        if not text:
+            return
+
+        with self.lock:
+
+            print(f"Jarvis: {text}")
+
+            fd, filename = tempfile.mkstemp(suffix=".mp3")
+            os.close(fd)
+
+            try:
+                print("Generating speech...")
+                asyncio.run(self._generate(text, filename))
+
+                print("Playing...")
+                playsound(filename)
+
+                print("Finished playing.")
+
+            finally:
+                try:
+                    os.remove(filename)
+                except OSError:
+                    pass
 
 
 speech = SpeechEngine()
