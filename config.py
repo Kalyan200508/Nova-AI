@@ -1,0 +1,19 @@
+"""
+JARVIS Configuration
+"""
+
+APP_NAME = "JARVIS"
+VERSION = "1.0.0"
+
+USER_NAME = "Kalyan"
+
+VOICE_RATE = 175
+VOICE_VOLUME = 1.0
+
+WAKE_WORD = "jarvis"
+
+ONLINE_MODE = True
+
+CAMERA_INDEX = 0
+
+DEBUG = True
