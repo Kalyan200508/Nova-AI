@@ -38,5 +38,13 @@
     {
         "user": "What time is it?",
         "assistant": "The current time is 11:46 PM."
+    },
+    {
+        "user": "Hello.",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Hello.",
+        "assistant": "Hello Kalyan."
     }
 ]

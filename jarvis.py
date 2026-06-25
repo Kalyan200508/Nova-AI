@@ -1,4 +1,4 @@
-from core.speech import speech
+from voice.speech_engine import speech
 from config import USER_NAME
 
 

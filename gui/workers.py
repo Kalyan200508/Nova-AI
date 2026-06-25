@@ -1,7 +1,7 @@
 from PySide6.QtCore import QObject, Signal, Slot
 
 from core.controller import controller
-from core.speech import speech
+from voice.speech_queue import speech_queue
 
 
 class VoiceWorker(QObject):
@@ -16,10 +16,10 @@ class VoiceWorker(QObject):
         user_text, reply = controller.process_voice()
 
         if reply and reply != "__EXIT__":
-            speech.speak(reply)
+            speech_queue.speak(reply)
 
         elif reply == "__EXIT__":
-            speech.speak("Goodbye.")
+            speech_queue.speak("Goodbye.")
 
         print("========== WORKER END ==========")
 
