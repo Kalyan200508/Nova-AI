@@ -1,1 +1,14 @@
-{}
+[
+    {
+        "user": "Hello Jarvis, how are you?",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Hello, Javaz.",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "How are you?",
+        "assistant": "I am operating perfectly."
+    }
+]

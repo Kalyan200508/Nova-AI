@@ -1,5 +1,8 @@
+import re
+
 from core.brain import brain
 from core.memory import memory
+from core.facts import facts
 from ai.openai_client import openai_client
 
 
@@ -8,9 +11,38 @@ class Router:
     def process(self, text):
 
         if not text:
-            return None
+            return "I didn't hear anything."
 
-        # Try offline brain first
+        text = text.strip()
+
+        # -----------------------------
+        # LEARN NAME
+        # -----------------------------
+        match = re.search(r"my name is (.+)", text, re.IGNORECASE)
+
+        if match:
+
+            name = match.group(1).strip()
+
+            facts.remember("name", name)
+
+            return f"I'll remember that. Your name is {name}."
+
+        # -----------------------------
+        # RECALL NAME
+        # -----------------------------
+        if re.search(r"what is my name", text, re.IGNORECASE):
+
+            name = facts.recall("name")
+
+            if name:
+                return f"Your name is {name}."
+
+            return "I don't know your name yet."
+
+        # -----------------------------
+        # OFFLINE BRAIN
+        # -----------------------------
         reply = brain.think(text)
 
         if reply == "__EXIT__":
@@ -20,7 +52,9 @@ class Router:
             memory.save(text, reply)
             return reply
 
-        # Try OpenAI if available
+        # -----------------------------
+        # OPENAI
+        # -----------------------------
         reply = openai_client.ask(text)
 
         if reply:
