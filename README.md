@@ -1,57 +1,20 @@
-# JARVIS AI Assistant
+# Nova AI
 
-A desktop AI assistant built with Python.
+An intelligent desktop AI assistant built with Python.
 
 ## Features
 
-* Voice interaction
-* Speech recognition (Whisper)
-* Text-to-speech
-* English, Hindi and Bengali support (planned)
-* OpenAI integration
-* Offline AI support (planned)
-* Windows automation
-* Browser automation
-* Camera vision (planned)
-* Modern GUI
+- Voice interaction
+- Speech recognition (Whisper)
+- Natural text-to-speech (Nova personality)
+- OpenAI integration
+- Offline intent engine
+- AI intent engine (in development)
+- Windows automation
+- Browser automation
+- Memory system
+- Planner architecture
+- Modern PySide6 GUI
+- Vision support (planned)
 
 ## Project Structure
-
-```
-JARVIS/
-├── ai/
-├── automation/
-├── core/
-├── data/
-├── gui/
-├── vision/
-├── plugins/
-├── assets/
-├── config.py
-├── jarvis.py
-├── main.py
-├── requirements.txt
-└── README.md
-```
-
-## Installation
-
-Install the required packages:
-
-```bash
-py -m pip install -r requirements.txt
-```
-
-## Run
-
-```bash
-py main.py
-```
-
-## Current Version
-
-**v0.3**
-
-## Author
-
-Kalyan
