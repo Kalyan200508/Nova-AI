@@ -238,5 +238,17 @@
     {
         "user": "What time is it?",
         "assistant": "The current time is 12:53 PM."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open YouTube",
+        "assistant": "Opening youtube."
+    },
+    {
+        "user": "Open WhatsApp",
+        "assistant": "Opening whatsapp."
     }
 ]

@@ -4,11 +4,15 @@ import string
 from automation.apps import apps
 from automation.browser import browser
 from automation.search import search
+from automation.fuzzy import fuzzy
 
 
 class AutomationEngine:
 
     def execute(self, text):
+
+        if not text:
+            return None
 
         text = text.lower().strip()
 
@@ -33,21 +37,30 @@ class AutomationEngine:
             if search.search(engine, query):
                 return f"Searching {engine} for {query}."
 
+            return None
+
         # ---------------------------------
-        # OPEN APPLICATIONS / WEBSITES
+        # OPEN APP / WEBSITE
         # ---------------------------------
 
-        if text.startswith("open "):
+        match = re.match(r"open (.+)", text)
 
-            item = text.replace("open ", "").strip()
+        if match:
 
-            # Try application first
+            item = match.group(1).strip()
+
+            # Fuzzy correction
+            item = fuzzy.match(item)
+
+            # Try applications
             if apps.open(item):
                 return f"Opening {item}."
 
-            # Then try website
+            # Try websites
             if browser.open(item):
                 return f"Opening {item}."
+
+            return f"I couldn't find {item}."
 
         return None
 
