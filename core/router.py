@@ -1,5 +1,6 @@
 import re
 
+from memory.session import session
 from core.brain import brain
 from core.memory import memory
 from core.facts import facts
@@ -25,8 +26,15 @@ class Router:
             name = match.group(1).strip()
 
             facts.remember("name", name)
+            session.set("user_name", name)
 
-            return f"I'll remember that. Your name is {name}."
+            reply = f"I'll remember that. Your name is {name}."
+
+            memory.save(text, reply)
+            session.set("last_command", text)
+            session.set("last_reply", reply)
+
+            return reply
 
         # -----------------------------
         # RECALL NAME
@@ -36,9 +44,15 @@ class Router:
             name = facts.recall("name")
 
             if name:
-                return f"Your name is {name}."
+                reply = f"Your name is {name}."
+            else:
+                reply = "I don't know your name yet."
 
-            return "I don't know your name yet."
+            memory.save(text, reply)
+            session.set("last_command", text)
+            session.set("last_reply", reply)
+
+            return reply
 
         # -----------------------------
         # OFFLINE BRAIN
@@ -49,7 +63,12 @@ class Router:
             return "__EXIT__"
 
         if reply is not None:
+
             memory.save(text, reply)
+
+            session.set("last_command", text)
+            session.set("last_reply", reply)
+
             return reply
 
         # -----------------------------
@@ -58,7 +77,12 @@ class Router:
         reply = openai_client.ask(text)
 
         if reply:
+
             memory.save(text, reply)
+
+            session.set("last_command", text)
+            session.set("last_reply", reply)
+
             return reply
 
         return "I don't know how to answer that yet."
