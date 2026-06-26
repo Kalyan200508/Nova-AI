@@ -26,10 +26,14 @@ class Brain:
             return current_date()
 
         elif intent == "WHO_ARE_YOU":
-            return "I am Jarvis, your personal AI assistant."
+            return (
+                "I'm Nova, your personal AI assistant. "
+                "I'm here to help you automate tasks, answer questions, "
+                "search the web, and make using your computer easier."
+            )
 
         elif intent == "THANKS":
-            return "You're welcome."
+            return "You're very welcome, Kalyan."
 
         elif intent == "SYSTEM_EXIT":
             return exit_system()

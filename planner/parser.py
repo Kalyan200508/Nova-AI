@@ -1,4 +1,5 @@
 import re
+import string
 
 from planner.models import Command
 
@@ -11,6 +12,11 @@ class CommandParser:
             return None
 
         text = text.lower().strip()
+
+        # Remove punctuation
+        text = text.translate(
+            str.maketrans("", "", string.punctuation)
+        )
 
         # ---------------------------------
         # OPEN APP / WEBSITE
@@ -97,6 +103,8 @@ class CommandParser:
             "what is your name",
             "who are you",
             "introduce yourself",
+            "tell me about yourself",
+            "whats your name",
         ):
 
             return Command(

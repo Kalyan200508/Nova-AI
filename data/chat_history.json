@@ -174,5 +174,33 @@
     {
         "user": "Search YouTube for Lofi Music",
         "assistant": "Searching youtube for lofi music."
+    },
+    {
+        "user": "What is your name?",
+        "assistant": "I'm Nova, your personal AI assistant. I'm here to help you automate tasks, answer questions, and make using your computer easier."
+    },
+    {
+        "user": "Who are you?",
+        "assistant": "I'm Nova, your personal AI assistant. I'm here to help you automate tasks, answer questions, and make using your computer easier."
+    },
+    {
+        "user": "Introduce yourself",
+        "assistant": "I'm Nova, your personal AI assistant. I'm here to help you automate tasks, answer questions, and make using your computer easier."
+    },
+    {
+        "user": "Who am I?",
+        "assistant": "Who Am I (2014 film) A 2014 German techno-thriller film co-written and directed by Baran bo Odar."
+    },
+    {
+        "user": "Hello",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Can you tell me what time is it?",
+        "assistant": "The current time is 11:37 AM."
     }
 ]
