@@ -1,15 +1,13 @@
 from core.router import router
 
-
 print()
-
-print("Nova Router Test")
-
-print("----------------")
+print("=========== NOVA ROUTER TEST ===========")
+print("Type 'exit' to quit.")
+print()
 
 while True:
 
-    text = input("\nYou : ")
+    text = input("You : ")
 
     if text.lower() == "exit":
         break
@@ -18,4 +16,6 @@ while True:
 
     print()
 
-    print("Nova:", reply)
+    print("Nova :", reply)
+
+    print()

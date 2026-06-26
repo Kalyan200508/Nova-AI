@@ -24,17 +24,17 @@ class Router:
 
         text = text.strip()
 
-        # -------------------------
-        # Save user message
-        # -------------------------
+        # -----------------------------
+        # Save User Message
+        # -----------------------------
 
         conversation.add_user(text)
 
         session.set("last_command", text)
 
-        # -------------------------
+        # -----------------------------
         # Learn Name
-        # -------------------------
+        # -----------------------------
 
         match = re.search(
             r"my name is (.+)",
@@ -54,9 +54,9 @@ class Router:
 
             return self.finish(text, reply)
 
-        # -------------------------
+        # -----------------------------
         # Recall Name
-        # -------------------------
+        # -----------------------------
 
         if re.search(
             r"what is my name",
@@ -73,9 +73,9 @@ class Router:
 
             return self.finish(text, reply)
 
-        # -------------------------
+        # -----------------------------
         # Planner
-        # -------------------------
+        # -----------------------------
 
         plan = planner.plan(text)
 
@@ -95,9 +95,9 @@ class Router:
 
                 return self.finish(text, reply)
 
-        # -------------------------
+        # -----------------------------
         # Offline Brain
-        # -------------------------
+        # -----------------------------
 
         reply = brain.think(text)
 
@@ -108,9 +108,9 @@ class Router:
 
             return self.finish(text, reply)
 
-        # -------------------------
-        # AI
-        # -------------------------
+        # -----------------------------
+        # NVIDIA AI
+        # -----------------------------
 
         reply = ai.ask(text)
 
@@ -120,7 +120,7 @@ class Router:
 
         return "I couldn't answer that."
 
-    # ---------------------------------
+    # ----------------------------------
 
     def finish(self, user, reply):
 

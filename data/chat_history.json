@@ -34,5 +34,53 @@
     {
         "user": "who are you",
         "assistant": "I am Jarvis. Your personal artificial intelligence assistant."
+    },
+    {
+        "user": "my name is Kalyan",
+        "assistant": "I'll remember that. Your name is Kalyan."
+    },
+    {
+        "user": "what is my name",
+        "assistant": "Your name is Kalyan."
+    },
+    {
+        "user": "open notepad",
+        "assistant": "Opening Notepad."
+    },
+    {
+        "user": "open chrome",
+        "assistant": "Opening Chrome."
+    },
+    {
+        "user": "search google for python",
+        "assistant": "Searching Google for python."
+    },
+    {
+        "user": "who are you",
+        "assistant": "I am Jarvis. Your personal artificial intelligence assistant."
+    },
+    {
+        "user": "my name is Kalyan",
+        "assistant": "I'll remember that. Your name is Kalyan."
+    },
+    {
+        "user": "what is my name",
+        "assistant": "Your name is Kalyan."
+    },
+    {
+        "user": "open notepad",
+        "assistant": "Opening Notepad."
+    },
+    {
+        "user": "open chrome",
+        "assistant": "Opening Chrome."
+    },
+    {
+        "user": "search google for python",
+        "assistant": "Searching Google for python."
+    },
+    {
+        "user": "who are you",
+        "assistant": "I am Jarvis. Your personal artificial intelligence assistant."
     }
 ]
