@@ -1,29 +1,27 @@
-from memory.conversation import conversation
+import time
 
-conversation.add_user("Hello Nova")
-
-conversation.add_assistant("Hello Kalyan!")
-
-conversation.add_user("Open Chrome")
-
-conversation.add_assistant("Opening Chrome.")
+from voice.conversation import conversation
 
 print()
 
-print("Conversation")
-
-print("----------------")
-
-for item in conversation.history():
-
-    print(item["role"], ":", item["content"])
+print("Waiting...")
 
 print()
 
-print("Messages:", conversation.count())
+print(conversation.wake())
 
-print()
+while True:
 
-print("Last:")
+    print("Awake:", conversation.awake())
 
-print(conversation.last())
+    print("Sleeping:", conversation.sleeping())
+
+    print()
+
+    if conversation.sleeping():
+
+        print("Nova is sleeping again.")
+
+        break
+
+    time.sleep(2)

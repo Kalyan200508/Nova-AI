@@ -1,24 +1,67 @@
-import pyttsx3
+import asyncio
+import os
+import tempfile
 
-from config import VOICE_RATE, VOICE_VOLUME
+import edge_tts
+import pygame
 
 
 class SpeechEngine:
+
     def __init__(self):
-        self.engine = pyttsx3.init()
 
-        self.engine.setProperty("rate", VOICE_RATE)
-        self.engine.setProperty("volume", VOICE_VOLUME)
+        pygame.mixer.init()
 
-        voices = self.engine.getProperty("voices")
+        # Change this voice anytime
+        self.voice = "en-US-AriaNeural"
 
-        if voices:
-            self.engine.setProperty("voice", voices[0].id)
+        self.rate = "+0%"
+
+        self.pitch = "+0Hz"
+
+    async def _generate(self, text, filename):
+
+        communicate = edge_tts.Communicate(
+            text=text,
+            voice=self.voice,
+            rate=self.rate,
+            pitch=self.pitch,
+        )
+
+        await communicate.save(filename)
 
     def speak(self, text):
-        print(f"Jarvis: {text}")
-        self.engine.say(text)
-        self.engine.runAndWait()
+
+        if not text:
+            return
+
+        filename = tempfile.mktemp(suffix=".mp3")
+
+        asyncio.run(
+            self._generate(text, filename)
+        )
+
+        pygame.mixer.music.load(filename)
+
+        pygame.mixer.music.play()
+
+        while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
+
+        pygame.mixer.music.unload()
+
+        try:
+            os.remove(filename)
+        except Exception:
+            pass
+
+    def stop(self):
+
+        pygame.mixer.music.stop()
+
+    def set_voice(self, voice):
+
+        self.voice = voice
 
 
 speech = SpeechEngine()
