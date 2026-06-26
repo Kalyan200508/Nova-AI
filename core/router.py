@@ -1,9 +1,10 @@
 import re
 
 from ai.provider import ai
+
 from core.brain import brain
-from core.facts import facts
 from core.memory import memory
+from core.facts import facts
 
 from memory.session import session
 from memory.context import context
@@ -23,17 +24,17 @@ class Router:
 
         text = text.strip()
 
-        # -----------------------------
-        # Conversation Memory
-        # -----------------------------
+        # -------------------------
+        # Save user message
+        # -------------------------
 
         conversation.add_user(text)
 
         session.set("last_command", text)
 
-        # -----------------------------
+        # -------------------------
         # Learn Name
-        # -----------------------------
+        # -------------------------
 
         match = re.search(
             r"my name is (.+)",
@@ -53,9 +54,9 @@ class Router:
 
             return self.finish(text, reply)
 
-        # -----------------------------
+        # -------------------------
         # Recall Name
-        # -----------------------------
+        # -------------------------
 
         if re.search(
             r"what is my name",
@@ -72,27 +73,31 @@ class Router:
 
             return self.finish(text, reply)
 
-        # -----------------------------
+        # -------------------------
         # Planner
-        # -----------------------------
+        # -------------------------
 
-        try:
+        plan = planner.plan(text)
 
-            plan = planner.plan(text)
+        if not plan.empty:
 
-            if plan and getattr(plan, "commands", None):
+            reply = executor.execute(plan.commands)
 
-                reply = executor.execute(plan.commands)
+            if reply:
 
-                if reply:
-                    return self.finish(text, reply)
+                if plan.commands:
 
-        except Exception:
-            pass
+                    command = plan.commands[0]
 
-        # -----------------------------
+                    if command.action == "OPEN":
+
+                        context.set_app(command.target)
+
+                return self.finish(text, reply)
+
+        # -------------------------
         # Offline Brain
-        # -----------------------------
+        # -------------------------
 
         reply = brain.think(text)
 
@@ -103,21 +108,19 @@ class Router:
 
             return self.finish(text, reply)
 
-        # -----------------------------
-        # AI Fallback
-        # -----------------------------
+        # -------------------------
+        # AI
+        # -------------------------
 
-        reply = ai.ask(prompt=text)
+        reply = ai.ask(text)
 
         if reply:
 
             return self.finish(text, reply)
 
-        return "I'm sorry, I couldn't answer that."
+        return "I couldn't answer that."
 
-    # =====================================
-    # Finish Helper
-    # =====================================
+    # ---------------------------------
 
     def finish(self, user, reply):
 
