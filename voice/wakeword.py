@@ -1,7 +1,15 @@
 WAKE_WORDS = [
+
     "hey nova",
+
     "hello nova",
+
     "nova",
+
+    "hey nuva",
+
+    "nuva",
+
 ]
 
 
@@ -12,9 +20,15 @@ class WakeWord:
         if not text:
             return False
 
-        text = text.lower().strip()
+        text = text.lower()
 
-        return any(word in text for word in WAKE_WORDS)
+        for word in WAKE_WORDS:
+
+            if word in text:
+
+                return True
+
+        return False
 
 
 wakeword = WakeWord()

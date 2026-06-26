@@ -13,16 +13,21 @@ class Listener:
 
         print("Loading Whisper model...")
 
-        self.model = WhisperModel("small", device="cpu", compute_type="int8")
+        # tiny is much faster for wake-word detection
+        self.model = WhisperModel(
+            "tiny",
+            device="cpu",
+            compute_type="int8",
+        )
 
-        # Use your laptop's built-in microphone
-        self.device = 1
+        # None = default microphone
+        self.device = None
 
         print("Whisper loaded.")
 
-    def listen(self, duration=5, sample_rate=16000):
+    def listen(self, duration=2, sample_rate=16000):
 
-        print("\nListening... Speak now.")
+        print("\n🎤 Listening...")
 
         recording = sd.rec(
             int(duration * sample_rate),
@@ -34,23 +39,32 @@ class Listener:
 
         sd.wait()
 
-        print("Recording finished.")
-
-        temp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+        temp = tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=".wav",
+        )
 
         temp_name = temp.name
+
         temp.close()
 
         with wave.open(temp_name, "wb") as wf:
+
             wf.setnchannels(1)
+
             wf.setsampwidth(2)
+
             wf.setframerate(sample_rate)
+
             wf.writeframes(recording.tobytes())
 
         try:
 
             segments, info = self.model.transcribe(
-                temp_name, beam_size=1, vad_filter=False, language=None
+                temp_name,
+                beam_size=1,
+                vad_filter=True,
+                language="en",
             )
 
             text = ""
@@ -61,21 +75,11 @@ class Listener:
             text = text.strip()
 
             print("=" * 50)
-            print("Detected Language :", info.language)
-            print("Confidence        :", info.language_probability)
-            print("Recognized Text   :", repr(text))
+            print("Language :", info.language)
+            print("Text     :", repr(text))
             print("=" * 50)
 
-            if text == "":
-                return ""
-
             return text
-
-        except Exception as e:
-
-            print("Whisper Error:", e)
-
-            return ""
 
         finally:
 

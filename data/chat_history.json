@@ -86,5 +86,41 @@
     {
         "user": "...  ...  ...  ...",
         "assistant": "It seems like you haven't typed anything yet. How can I assist you today?"
+    },
+    {
+        "user": "Hey Nuva.",
+        "assistant": "Hello. I'm actually Nova, not Nuva, but that's okay. How can I assist you today? Do you have any questions, need help with a task, or just want to chat? I'm here to help."
+    },
+    {
+        "user": "open chrome and search youtube by th-",
+        "assistant": "Opening Chrome."
+    },
+    {
+        "user": "Open Chrome and search YouTube.",
+        "assistant": "Opening Chrome."
+    },
+    {
+        "user": "Open YouTube.",
+        "assistant": "I'm not capable of directly accessing or opening external websites like YouTube. I'm a text-based AI assistant, and my interactions are limited to this chat interface.\n\nHowever, I can provide you with instructions on how to open YouTube:\n\n1. Open a web browser (e.g., Google Chrome, Mozilla Firefox, Safari) on your device.\n2. Type \"youtube.com\" in the address bar and press Enter.\n3. You can also search for \"YouTube\" in your device's search bar or use a voice assistant like Siri, Google Assistant, or Alexa to open YouTube.\n\nIf you need help with anything else, feel free to ask!"
+    },
+    {
+        "user": "Who am I?",
+        "assistant": "You are the user I'm interacting with. Unfortunately, I don't have any personal information about you, as our conversation just started. However, I'm here to help answer any questions you may have, provide information, or engage in conversation. How can I assist you today?"
+    },
+    {
+        "user": "Hey!",
+        "assistant": "It's nice to meet you. Is there something I can help you with or would you like to chat?"
+    },
+    {
+        "user": "What is your name?",
+        "assistant": "My name is Jarvis."
+    },
+    {
+        "user": "Who is that?",
+        "assistant": "I'm Nova, your friendly desktop AI assistant. I'm here to help answer any questions you may have, provide information, and assist with tasks to make your life easier. How can I help you today?"
+    },
+    {
+        "user": "Open Google Chrome.",
+        "assistant": "I'm not capable of directly interacting with your computer or opening applications like Google Chrome. I'm a text-based AI assistant, and my interactions are limited to this chat interface.\n\nHowever, I can guide you through the process of opening Google Chrome. If you're using a Windows computer, you can try the following steps:\n\n1. Click on the Start menu (usually located at the bottom left corner of the screen).\n2. Type \"Google Chrome\" in the search bar.\n3. Click on the Google Chrome icon to open the browser.\n\nIf you're using a Mac, you can try the following steps:\n\n1. Click on the Spotlight search icon (usually located at the top right corner of the screen).\n2. Type \"Google Chrome\" in the search bar.\n3. Click on the Google Chrome icon to open the browser.\n\nAlternatively, you can also try navigating to the location where Google Chrome is installed on your computer and double-clicking on the executable file to open the browser.\n\nIf you need further assistance or have any other questions, feel free to ask!"
     }
 ]
