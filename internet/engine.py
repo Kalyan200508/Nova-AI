@@ -1,16 +1,11 @@
-from internet.providers import provider
+from intent.classifier import classifier
 
 
-class InternetEngine:
+class IntentEngine:
 
-    def search(self, query: str):
+    def detect(self, text):
 
-        result = provider.search(query)
-
-        if result:
-            return result
-
-        return None
+        return classifier.classify(text)
 
 
-internet_engine = InternetEngine()
+intent_engine = IntentEngine()
