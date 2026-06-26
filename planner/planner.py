@@ -8,72 +8,78 @@ class Planner:
 
     def plan(self, text: str):
 
-        text = text.lower().strip()
-
         plan = Plan()
 
-        # -------------------------
-        # OPEN
-        # -------------------------
+        text = text.lower().strip()
 
-        match = re.match(r"open (.+)", text)
+        parts = re.split(r"\band\b", text)
 
-        if match:
+        for part in parts:
 
-            target = match.group(1).strip()
+            part = part.strip()
 
-            plan.add(
-                Command(
-                    action="OPEN",
-                    target=target,
+            # -------------------------
+            # OPEN
+            # -------------------------
+
+            match = re.match(r"open (.+)", part)
+
+            if match:
+
+                target = match.group(1).strip()
+
+                plan.add(
+                    Command(
+                        action="OPEN",
+                        target=target,
+                    )
                 )
+
+                continue
+
+            # -------------------------
+            # GOOGLE
+            # -------------------------
+
+            match = re.match(
+                r"(search google for|google) (.+)",
+                part,
             )
 
-            return plan
+            if match:
 
-        # -------------------------
-        # GOOGLE SEARCH
-        # -------------------------
+                query = match.group(2).strip()
 
-        match = re.match(
-            r"(search google for|google) (.+)",
-            text,
-        )
-
-        if match:
-
-            query = match.group(2).strip()
-
-            plan.add(
-                Command(
-                    action="GOOGLE_SEARCH",
-                    query=query,
+                plan.add(
+                    Command(
+                        action="GOOGLE_SEARCH",
+                        query=query,
+                    )
                 )
+
+                continue
+
+            # -------------------------
+            # YOUTUBE
+            # -------------------------
+
+            match = re.match(
+                r"(search youtube for|youtube) (.+)",
+                part,
             )
 
-            return plan
+            if match:
 
-        # -------------------------
-        # YOUTUBE SEARCH
-        # -------------------------
+                query = match.group(2).strip()
 
-        match = re.match(
-            r"(search youtube for|youtube) (.+)",
-            text,
-        )
-
-        if match:
-
-            query = match.group(2).strip()
-
-            plan.add(
-                Command(
-                    action="YOUTUBE_SEARCH",
-                    query=query,
+                plan.add(
+                    Command(
+                        action="YOUTUBE_SEARCH",
+                        query=query,
+                    )
                 )
-            )
 
-            return plan
+                continue
 
         return plan
 

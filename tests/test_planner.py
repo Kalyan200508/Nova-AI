@@ -1,6 +1,11 @@
 from planner.planner import planner
 from planner.executor import executor
 
+print()
+
+print("====== NOVA PLANNER ======")
+
+print()
 
 while True:
 
@@ -13,14 +18,18 @@ while True:
 
     if plan.empty:
 
-        print("No command detected.")
+        print("No command found.")
 
         continue
 
-    reply = executor.execute(plan.commands)
+    print()
+
+    print("Commands:", len(plan.commands))
 
     print()
 
-    print("Nova:", reply)
+    reply = executor.execute(plan.commands)
+
+    print(reply)
 
     print()
