@@ -3,7 +3,7 @@ import os
 from openai import OpenAI
 
 
-class OpenAIClient:
+class NVIDIAClient:
 
     def __init__(self):
 
@@ -11,6 +11,7 @@ class OpenAIClient:
 
         if not api_key:
             self.client = None
+            print("NVIDIA_API_KEY not found.")
             return
 
         self.client = OpenAI(
@@ -23,8 +24,9 @@ class OpenAIClient:
     def ask(
         self,
         prompt,
-        system_prompt="You are Nova, a helpful AI assistant.",
-        temperature=0.7,
+        system_prompt="You are Nova, a helpful desktop AI assistant.",
+        temperature=0.2,
+        max_tokens=1024,
     ):
 
         if self.client is None:
@@ -45,14 +47,16 @@ class OpenAIClient:
                     },
                 ],
                 temperature=temperature,
-                max_tokens=1024,
+                top_p=0.7,
+                max_tokens=max_tokens,
+                stream=False,
             )
 
-            return response.choices[0].message.content
+            return response.choices[0].message.content.strip()
 
         except Exception as e:
-            print("OpenAI Error:", e)
+            print("NVIDIA Error:", e)
             return None
 
 
-openai_client = OpenAIClient()
+nvidia_client = NVIDIAClient()
