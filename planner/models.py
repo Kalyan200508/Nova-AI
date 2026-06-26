@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 
@@ -10,3 +10,9 @@ class Command:
     target: Optional[str] = None
 
     query: Optional[str] = None
+
+
+@dataclass
+class Plan:
+
+    commands: list[Command] = field(default_factory=list)

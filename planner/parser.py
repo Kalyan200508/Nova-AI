@@ -6,34 +6,64 @@ from planner.models import Command
 
 class CommandParser:
 
+    def normalize(self, text: str):
+
+        text = text.lower().strip()
+
+        text = text.translate(
+            str.maketrans("", "", string.punctuation)
+        )
+
+        return text
+
     def parse(self, text: str):
 
         if not text:
             return None
 
-        text = text.lower().strip()
+        text = self.normalize(text)
 
-        # Remove punctuation
-        text = text.translate(
-            str.maketrans("", "", string.punctuation)
-        )
-
-        # ---------------------------------
-        # OPEN APP / WEBSITE
-        # ---------------------------------
+        # -----------------------------
+        # MULTIPLE OPEN COMMANDS
+        # -----------------------------
 
         match = re.match(r"open (.+)", text)
 
         if match:
 
-            return Command(
-                action="OPEN",
-                target=match.group(1).strip(),
-            )
+            targets = match.group(1)
 
-        # ---------------------------------
-        # GOOGLE SEARCH
-        # ---------------------------------
+            # then
+            targets = targets.replace(" then ", ",")
+
+            # and
+            targets = targets.replace(" and ", ",")
+
+            # split
+            parts = [
+                x.strip()
+                for x in targets.split(",")
+                if x.strip()
+            ]
+
+            if len(parts) == 1:
+
+                return Command(
+                    action="OPEN",
+                    target=parts[0],
+                )
+
+            return [
+                Command(
+                    action="OPEN",
+                    target=item,
+                )
+                for item in parts
+            ]
+
+        # -----------------------------
+        # GOOGLE
+        # -----------------------------
 
         match = re.match(
             r"search google for (.+)",
@@ -44,12 +74,12 @@ class CommandParser:
 
             return Command(
                 action="GOOGLE_SEARCH",
-                query=match.group(1).strip(),
+                query=match.group(1),
             )
 
-        # ---------------------------------
-        # YOUTUBE SEARCH
-        # ---------------------------------
+        # -----------------------------
+        # YOUTUBE
+        # -----------------------------
 
         match = re.match(
             r"search youtube for (.+)",
@@ -60,44 +90,12 @@ class CommandParser:
 
             return Command(
                 action="YOUTUBE_SEARCH",
-                query=match.group(1).strip(),
+                query=match.group(1),
             )
 
-        # ---------------------------------
-        # GITHUB SEARCH
-        # ---------------------------------
-
-        match = re.match(
-            r"search github for (.+)",
-            text,
-        )
-
-        if match:
-
-            return Command(
-                action="GITHUB_SEARCH",
-                query=match.group(1).strip(),
-            )
-
-        # ---------------------------------
-        # WIKIPEDIA SEARCH
-        # ---------------------------------
-
-        match = re.match(
-            r"search wikipedia for (.+)",
-            text,
-        )
-
-        if match:
-
-            return Command(
-                action="WIKIPEDIA_SEARCH",
-                query=match.group(1).strip(),
-            )
-
-        # ---------------------------------
-        # INTRODUCE SELF
-        # ---------------------------------
+        # -----------------------------
+        # INTRODUCE
+        # -----------------------------
 
         if text in (
             "what is your name",
@@ -108,7 +106,7 @@ class CommandParser:
         ):
 
             return Command(
-                action="INTRODUCE_SELF",
+                action="INTRODUCE_SELF"
             )
 
         return None

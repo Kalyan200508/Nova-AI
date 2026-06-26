@@ -1,6 +1,6 @@
 import re
 
-from planner.parser import parser
+from planner.planner import planner
 from planner.executor import executor
 
 from internet.engine import internet_engine
@@ -50,14 +50,16 @@ class Router:
         # COMMAND PLANNER
         # ---------------------------------
 
-        command = parser.parse(text)
+        plan = planner.plan(text)
 
-        if command:
+        if plan.commands:
 
-            reply = executor.execute(command)
+            reply = executor.execute(plan.commands)
 
             if reply:
+
                 memory.save(text, reply)
+
                 return reply
 
         # ---------------------------------
@@ -70,7 +72,9 @@ class Router:
             return "__EXIT__"
 
         if reply:
+
             memory.save(text, reply)
+
             return reply
 
         # ---------------------------------
@@ -80,7 +84,9 @@ class Router:
         reply = internet_engine.search(text)
 
         if reply:
+
             memory.save(text, reply)
+
             return reply
 
         # ---------------------------------
@@ -90,12 +96,12 @@ class Router:
         reply = openai_client.ask(text)
 
         if reply:
+
             memory.save(text, reply)
+
             return reply
 
-        return (
-            "I'm sorry, I couldn't find an answer for that."
-        )
+        return "I'm sorry, I couldn't find an answer for that."
 
 
 router = Router()

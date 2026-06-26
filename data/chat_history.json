@@ -202,5 +202,41 @@
     {
         "user": "Can you tell me what time is it?",
         "assistant": "The current time is 11:37 AM."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open Gmail.",
+        "assistant": "Opening gmail."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "open chrome and youtube",
+        "assistant": "Opening chrome.\nOpening youtube."
+    },
+    {
+        "user": "open chrome then gmail then github",
+        "assistant": "Opening chrome.\nOpening gmail.\nOpening github."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open Chrome and YouTube",
+        "assistant": "Opening chrome.\nOpening youtube."
+    },
+    {
+        "user": "Who are you?",
+        "assistant": "I'm Nova, your personal AI assistant. I'm here to help you automate tasks, answer questions, and make using your computer easier."
+    },
+    {
+        "user": "What time is it?",
+        "assistant": "The current time is 12:53 PM."
     }
 ]
