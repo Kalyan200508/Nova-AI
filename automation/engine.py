@@ -1,7 +1,9 @@
+import re
 import string
 
 from automation.apps import apps
 from automation.browser import browser
+from automation.search import search
 
 
 class AutomationEngine:
@@ -14,9 +16,27 @@ class AutomationEngine:
             str.maketrans("", "", string.punctuation)
         )
 
-        # -----------------------------
-        # OPEN APPLICATIONS
-        # -----------------------------
+        # ---------------------------------
+        # SEARCH COMMANDS
+        # ---------------------------------
+
+        match = re.match(
+            r"search (google|youtube|github|wikipedia) for (.+)",
+            text,
+        )
+
+        if match:
+
+            engine = match.group(1)
+            query = match.group(2).strip()
+
+            if search.search(engine, query):
+                return f"Searching {engine} for {query}."
+
+        # ---------------------------------
+        # OPEN APPLICATIONS / WEBSITES
+        # ---------------------------------
+
         if text.startswith("open "):
 
             item = text.replace("open ", "").strip()

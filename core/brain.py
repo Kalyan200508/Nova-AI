@@ -1,6 +1,6 @@
-from intents.engine import intent_engine
-from intents.greeting import execute as greeting
-from intents.system import (
+from intent.engine import intent_engine
+from intent.greeting import execute as greeting
+from intent.system import (
     current_time,
     current_date,
     exit_system,

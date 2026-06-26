@@ -82,5 +82,21 @@
     {
         "user": "What time is it?",
         "assistant": "The current time is 01:29 AM."
+    },
+    {
+        "user": "open youtube",
+        "assistant": "Opening youtube."
+    },
+    {
+        "user": "Search YouTube for AI.",
+        "assistant": "Searching youtube for ai."
+    },
+    {
+        "user": "Open calculator!",
+        "assistant": "Opening calculator."
+    },
+    {
+        "user": "Open Chrome",
+        "assistant": "Opening chrome."
     }
 ]
