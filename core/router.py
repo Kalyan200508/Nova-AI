@@ -1,10 +1,10 @@
 import re
 
-from memory.session import session
-from core.brain import brain
-from core.memory import memory
-from core.facts import facts
 from ai.openai_client import openai_client
+from core.brain import brain
+from core.facts import facts
+from core.memory import memory
+from memory.session import session
 
 
 class Router:

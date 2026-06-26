@@ -13,11 +13,7 @@ class Listener:
 
         print("Loading Whisper model...")
 
-        self.model = WhisperModel(
-            "small",
-            device="cpu",
-            compute_type="int8"
-        )
+        self.model = WhisperModel("small", device="cpu", compute_type="int8")
 
         # Use your laptop's built-in microphone
         self.device = 1
@@ -33,17 +29,14 @@ class Listener:
             samplerate=sample_rate,
             channels=1,
             dtype=np.int16,
-            device=self.device
+            device=self.device,
         )
 
         sd.wait()
 
         print("Recording finished.")
 
-        temp = tempfile.NamedTemporaryFile(
-            delete=False,
-            suffix=".wav"
-        )
+        temp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
 
         temp_name = temp.name
         temp.close()
@@ -57,10 +50,7 @@ class Listener:
         try:
 
             segments, info = self.model.transcribe(
-                temp_name,
-                beam_size=1,
-                vad_filter=False,
-                language=None
+                temp_name, beam_size=1, vad_filter=False, language=None
             )
 
             text = ""

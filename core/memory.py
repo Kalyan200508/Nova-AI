@@ -21,10 +21,7 @@ class Memory:
         if not isinstance(history, list):
             history = []
 
-        history.append({
-            "user": user,
-            "assistant": assistant
-        })
+        history.append({"user": user, "assistant": assistant})
 
         with open(self.file, "w", encoding="utf-8") as f:
             json.dump(history, f, indent=4, ensure_ascii=False)

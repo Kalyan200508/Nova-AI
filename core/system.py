@@ -1,9 +1,10 @@
-import os
-import subprocess
-import pyautogui
-import psutil
-import platform
 import ctypes
+import os
+import platform
+import subprocess
+
+import psutil
+import pyautogui
 
 
 class SystemController:

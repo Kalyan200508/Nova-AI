@@ -28,12 +28,9 @@ class OpenAIClient:
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are Jarvis, an intelligent personal AI assistant."
+                        "content": "You are Jarvis, an intelligent personal AI assistant.",
                     },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
+                    {"role": "user", "content": prompt},
                 ],
                 temperature=0.7,
             )

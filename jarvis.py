@@ -1,5 +1,5 @@
-from core.speech import speech
 from config import USER_NAME
+from core.speech import speech
 
 
 class Jarvis:

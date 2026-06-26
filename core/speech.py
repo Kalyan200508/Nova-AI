@@ -1,4 +1,5 @@
 import pyttsx3
+
 from config import VOICE_RATE, VOICE_VOLUME
 
 

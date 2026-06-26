@@ -2,14 +2,8 @@ import sys
 
 from PySide6.QtCore import Qt, QThread
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import (
-    QApplication,
-    QLabel,
-    QPushButton,
-    QTextEdit,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QTextEdit,
+                               QVBoxLayout, QWidget)
 
 from gui.workers import VoiceWorker
 
