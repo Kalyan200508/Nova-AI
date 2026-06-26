@@ -250,5 +250,33 @@
     {
         "user": "Open WhatsApp",
         "assistant": "Opening whatsapp."
+    },
+    {
+        "user": "Hello.",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Who are you?",
+        "assistant": "I'm Nova, your personal AI assistant. I'm here to help you automate tasks, answer questions, and make using your computer easier."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open Jimin",
+        "assistant": "I couldn't find jimin."
+    },
+    {
+        "user": "Open Jimin",
+        "assistant": "I couldn't find jimin."
+    },
+    {
+        "user": "Search Google for Python",
+        "assistant": "Searching google for python."
+    },
+    {
+        "user": "Open Gmail",
+        "assistant": "Opening gmail."
     }
 ]

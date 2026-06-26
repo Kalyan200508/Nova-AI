@@ -20,10 +20,14 @@ class Router:
         text = text.strip()
 
         # ---------------------------------
-        # LEARN NAME
+        # LEARN USER NAME
         # ---------------------------------
 
-        match = re.search(r"my name is (.+)", text, re.IGNORECASE)
+        match = re.search(
+            r"my name is (.+)",
+            text,
+            re.IGNORECASE,
+        )
 
         if match:
 
@@ -31,20 +35,32 @@ class Router:
 
             facts.remember("name", name)
 
-            return f"I'll remember that. Your name is {name}."
+            reply = f"I'll remember that. Your name is {name}."
+
+            memory.save(text, reply)
+
+            return reply
 
         # ---------------------------------
-        # RECALL NAME
+        # RECALL USER NAME
         # ---------------------------------
 
-        if re.search(r"what is my name", text, re.IGNORECASE):
+        if re.search(
+            r"what is my name",
+            text,
+            re.IGNORECASE,
+        ):
 
             name = facts.recall("name")
 
             if name:
-                return f"Your name is {name}."
+                reply = f"Your name is {name}."
+            else:
+                reply = "I don't know your name yet."
 
-            return "I don't know your name yet."
+            memory.save(text, reply)
+
+            return reply
 
         # ---------------------------------
         # COMMAND PLANNER
@@ -52,7 +68,7 @@ class Router:
 
         plan = planner.plan(text)
 
-        if plan.commands:
+        if plan and plan.commands:
 
             reply = executor.execute(plan.commands)
 
@@ -78,7 +94,7 @@ class Router:
             return reply
 
         # ---------------------------------
-        # INTERNET
+        # INTERNET ENGINE
         # ---------------------------------
 
         reply = internet_engine.search(text)
@@ -90,7 +106,7 @@ class Router:
             return reply
 
         # ---------------------------------
-        # OPENAI
+        # OPENAI CHAT
         # ---------------------------------
 
         reply = openai_client.ask(text)
@@ -101,7 +117,11 @@ class Router:
 
             return reply
 
-        return "I'm sorry, I couldn't find an answer for that."
+        # ---------------------------------
+        # DEFAULT
+        # ---------------------------------
+
+        return "I'm sorry, I couldn't understand that."
 
 
 router = Router()
