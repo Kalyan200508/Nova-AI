@@ -1,45 +1,55 @@
 import os
+from dotenv import load_dotenv
 
 try:
     from openai import OpenAI
 except ImportError:
     OpenAI = None
 
+load_dotenv()
+
 
 class OpenAIClient:
 
     def __init__(self):
 
-        self.api_key = os.getenv("OPENAI_API_KEY")
+        self.api_key = os.getenv("NVIDIA_API_KEY")
 
-        if OpenAI is not None and self.api_key:
-            self.client = OpenAI(api_key=self.api_key)
-        else:
+        if OpenAI is None:
+            print("OpenAI package is not installed.")
             self.client = None
+            return
+
+        if not self.api_key:
+            print("NVIDIA_API_KEY not found.")
+            self.client = None
+            return
+
+        self.client = OpenAI(
+            base_url="https://integrate.api.nvidia.com/v1",
+            api_key=self.api_key,
+        )
 
     def ask(
         self,
-        prompt,
-        system_prompt=None,
-        temperature=0.7,
+        prompt: str,
+        system_prompt: str = "You are Nova, an intelligent desktop AI assistant.",
+        temperature: float = 0.3,
+        model: str = "meta/llama-3.3-70b-instruct",
+        max_tokens: int = 1024,
     ):
 
         if self.client is None:
             return None
 
-        if system_prompt is None:
-
-            system_prompt = (
-                "You are Nova, a friendly, intelligent desktop AI assistant. "
-                "Be concise, accurate, and conversational."
-            )
-
         try:
 
             response = self.client.chat.completions.create(
-
-                model="gpt-4.1-mini",
-
+                model=model,
+                temperature=temperature,
+                top_p=0.7,
+                max_tokens=max_tokens,
+                stream=False,
                 messages=[
                     {
                         "role": "system",
@@ -50,17 +60,12 @@ class OpenAIClient:
                         "content": prompt,
                     },
                 ],
-
-                temperature=temperature,
-
             )
 
-            return response.choices[0].message.content
+            return response.choices[0].message.content.strip()
 
         except Exception as e:
-
-            print(f"OpenAI Error: {e}")
-
+            print(f"[NVIDIA API ERROR] {e}")
             return None
 
 

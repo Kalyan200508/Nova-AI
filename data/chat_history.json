@@ -278,5 +278,17 @@
     {
         "user": "Open Gmail",
         "assistant": "Opening gmail."
+    },
+    {
+        "user": "Hello",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Who are you?",
+        "assistant": "I'm Nova, your personal AI assistant. I'm here to help you automate tasks, answer questions, and make using your computer easier."
+    },
+    {
+        "user": "What is AI?",
+        "assistant": ".ai is the Internet country code top-level domain for Anguilla, a British Overseas Territory in the Caribbean. It is administered by the government of Anguilla. It is a popular domain hack with companies and projects related to the artificial intelligence industry. Google's ad targeting treats.ai as a generic top-level domain because \"users and website owners frequently see [the domain] as being more generic than country-targeted.\" In 2021, Google Search analyst Gary Illyes announced that \".ai\" had been added to Google's list of generic country-code top-level domains, meaning that Google would no longer infer Anguilla-specific targeting from the ccTLD. Identity Digital began managing the domain as of January 2025."
     }
 ]

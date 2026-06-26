@@ -3,6 +3,8 @@ import re
 from planner.planner import planner
 from planner.executor import executor
 
+from intent_ai.engine import intent_engine
+
 from internet.engine import internet_engine
 from core.brain import brain
 from core.memory import memory
@@ -20,7 +22,7 @@ class Router:
         text = text.strip()
 
         # ---------------------------------
-        # LEARN USER NAME
+        # LEARN NAME
         # ---------------------------------
 
         match = re.search(
@@ -42,7 +44,7 @@ class Router:
             return reply
 
         # ---------------------------------
-        # RECALL USER NAME
+        # RECALL NAME
         # ---------------------------------
 
         if re.search(
@@ -63,7 +65,7 @@ class Router:
             return reply
 
         # ---------------------------------
-        # COMMAND PLANNER
+        # RULE-BASED PLANNER
         # ---------------------------------
 
         plan = planner.plan(text)
@@ -94,7 +96,7 @@ class Router:
             return reply
 
         # ---------------------------------
-        # INTERNET ENGINE
+        # INTERNET
         # ---------------------------------
 
         reply = internet_engine.search(text)
@@ -106,7 +108,23 @@ class Router:
             return reply
 
         # ---------------------------------
-        # OPENAI CHAT
+        # AI INTENT ENGINE
+        # ---------------------------------
+
+        ai_response = intent_engine.detect(text)
+
+        if ai_response and ai_response.commands:
+
+            reply = executor.execute(ai_response.commands)
+
+            if reply:
+
+                memory.save(text, reply)
+
+                return reply
+
+        # ---------------------------------
+        # AI CHAT
         # ---------------------------------
 
         reply = openai_client.ask(text)
@@ -121,7 +139,7 @@ class Router:
         # DEFAULT
         # ---------------------------------
 
-        return "I'm sorry, I couldn't understand that."
+        return "Sorry, I couldn't understand that."
 
 
 router = Router()

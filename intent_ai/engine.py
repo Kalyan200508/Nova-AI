@@ -12,18 +12,18 @@ class AIIntentEngine:
         if not text:
             return None
 
-        response = openai_client.ask(
+        reply = openai_client.ask(
             prompt=text,
             system_prompt=SYSTEM_PROMPT,
             temperature=0,
         )
 
-        if not response:
+        if not reply:
             return None
 
         try:
 
-            data = json.loads(response)
+            data = json.loads(reply)
 
             commands = []
 
@@ -38,13 +38,12 @@ class AIIntentEngine:
                     )
                 )
 
-            return AIResponse(commands=commands)
+            return AIResponse(commands)
 
         except Exception as e:
 
-            print(f"[AI Intent] {e}")
-
-            print(response)
+            print("AI Intent Error:", e)
+            print(reply)
 
             return None
 
