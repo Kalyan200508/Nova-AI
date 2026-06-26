@@ -52,13 +52,13 @@ class Router:
 
         command = parser.parse(text)
 
-        if command:
+        reply = executor.execute(command)
 
-            reply = executor.execute(command)
+        if reply:
 
-            if reply:
-                memory.save(text, reply)
-                return reply
+            memory.save(text, reply)
+
+            return reply
 
         # ---------------------------------
         # OFFLINE BRAIN
@@ -70,7 +70,9 @@ class Router:
             return "__EXIT__"
 
         if reply:
+
             memory.save(text, reply)
+
             return reply
 
         # ---------------------------------
@@ -80,7 +82,9 @@ class Router:
         reply = internet_engine.search(text)
 
         if reply:
+
             memory.save(text, reply)
+
             return reply
 
         # ---------------------------------
@@ -90,12 +94,12 @@ class Router:
         reply = openai_client.ask(text)
 
         if reply:
+
             memory.save(text, reply)
+
             return reply
 
-        return (
-            "I'm sorry, I couldn't find an answer for that."
-        )
+        return "I'm sorry, I couldn't find an answer for that."
 
 
 router = Router()

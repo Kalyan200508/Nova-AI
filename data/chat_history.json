@@ -98,5 +98,81 @@
     {
         "user": "Open Chrome",
         "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Open Youtube",
+        "assistant": "Opening youtube."
+    },
+    {
+        "user": "Search Google for Python",
+        "assistant": "Searching google for python."
+    },
+    {
+        "user": "Search YouTube for AI",
+        "assistant": "Searching youtube for ai."
+    },
+    {
+        "user": "Search Github for fast whisper",
+        "assistant": "Searching github for fast whisper."
+    },
+    {
+        "user": "search wikipedia for  Helen",
+        "assistant": "Searching wikipedia for helen."
+    },
+    {
+        "user": "Search YouTube for Lofi Music",
+        "assistant": "Searching youtube for lofi music."
+    },
+    {
+        "user": "Hello.",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Open Chrome",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Hello, how are you?",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "What time is it?",
+        "assistant": "The current time is 10:52 AM."
+    },
+    {
+        "user": "What is your name?",
+        "assistant": "Your Name is a 2016 Japanese animated romantic fantasy film written and directed by Makoto Shinkai, produced by CoMix Wave Films, and distributed by Toho. The first installment of what critics deem Shinkai's \"disaster trilogy\"—followed by Weathering with You and Suzume—whose three entries share themes inspired by the frequency of natural disasters in Japan, it depicts the story of high school students Taki Tachibana and Mitsuha Miyamizu, who suddenly begin to swap bodies despite never having met, unleashing chaos onto each other's lives. The film features the voices of Ryunosuke Kamiki and Mone Kamishiraishi as Taki and Mitsuha respectively, with animation direction by Masashi Ando, character design by Masayoshi Tanaka, and its orchestral score and soundtrack composed by the rock band Radwimps. A light novel of the same name, also written by Shinkai, was published a month prior to its release."
+    },
+    {
+        "user": "open whatsapp",
+        "assistant": "Opening whatsapp."
+    },
+    {
+        "user": "Open YouTube",
+        "assistant": "Opening youtube."
+    },
+    {
+        "user": "What is your name?",
+        "assistant": "Your Name is a 2016 Japanese animated romantic fantasy film written and directed by Makoto Shinkai, produced by CoMix Wave Films, and distributed by Toho. The first installment of what critics deem Shinkai's \"disaster trilogy\"—followed by Weathering with You and Suzume—whose three entries share themes inspired by the frequency of natural disasters in Japan, it depicts the story of high school students Taki Tachibana and Mitsuha Miyamizu, who suddenly begin to swap bodies despite never having met, unleashing chaos onto each other's lives. The film features the voices of Ryunosuke Kamiki and Mone Kamishiraishi as Taki and Mitsuha respectively, with animation direction by Masashi Ando, character design by Masayoshi Tanaka, and its orchestral score and soundtrack composed by the rock band Radwimps. A light novel of the same name, also written by Shinkai, was published a month prior to its release."
+    },
+    {
+        "user": "Who are you?",
+        "assistant": "I am Jarvis, your personal AI assistant."
+    },
+    {
+        "user": "Hello",
+        "assistant": "Hello Kalyan."
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening chrome."
+    },
+    {
+        "user": "Search YouTube for Lofi Music",
+        "assistant": "Searching youtube for lofi music."
     }
 ]
