@@ -2,10 +2,17 @@ import sys
 
 from PySide6.QtCore import Qt, QThread
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QTextEdit,
-                               QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (
+    QApplication,
+    QLabel,
+    QPushButton,
+    QTextEdit,
+    QVBoxLayout,
+    QWidget,
+)
 
 from gui.workers import VoiceWorker
+from gui.wake_worker import WakeWorker
 
 
 class JarvisWindow(QWidget):
@@ -16,8 +23,17 @@ class JarvisWindow(QWidget):
         self.setWindowTitle("JARVIS AI")
         self.resize(900, 600)
 
+        # Manual voice thread
         self.thread = None
         self.worker = None
+
+        # Background wake thread
+        self.wake_thread = QThread()
+        self.wake_worker = WakeWorker()
+
+        self.wake_worker.moveToThread(self.wake_thread)
+        self.wake_thread.started.connect(self.wake_worker.run)
+        self.wake_thread.start()
 
         self.setStyleSheet("""
         QWidget{
@@ -54,10 +70,9 @@ class JarvisWindow(QWidget):
 
         layout = QVBoxLayout()
 
-        title = QLabel("JARVIS")
+        title = QLabel("NOVA AI")
         title.setAlignment(Qt.AlignCenter)
         title.setFont(QFont("Segoe UI", 30))
-
         layout.addWidget(title)
 
         self.status = QLabel("Status : Ready")
@@ -104,17 +119,15 @@ class JarvisWindow(QWidget):
             self.chat.append(f"You : {user_text}")
 
         if reply:
-            self.chat.append(f"Jarvis : {reply}")
+            self.chat.append(f"Nova : {reply}")
 
         self.chat.append("")
-
         self.status.setText("Status : Ready")
 
     def cleanup_thread(self):
 
         self.thread = None
         self.worker = None
-
         self.button.setEnabled(True)
 
     def closeEvent(self, event):
@@ -123,6 +136,11 @@ class JarvisWindow(QWidget):
             if self.thread is not None and self.thread.isRunning():
                 self.thread.quit()
                 self.thread.wait()
+
+            if self.wake_thread.isRunning():
+                self.wake_thread.quit()
+                self.wake_thread.wait()
+
         except RuntimeError:
             pass
 
@@ -134,7 +152,6 @@ def start_gui():
     app = QApplication(sys.argv)
 
     window = JarvisWindow()
-
     window.show()
 
     sys.exit(app.exec())

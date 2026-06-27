@@ -126,5 +126,45 @@
     {
         "user": "Bye.",
         "assistant": "It was nice chatting with you, even if it was brief. If you need anything in the future, feel free to come back and ask. Have a great day! Bye for now."
+    },
+    {
+        "user": "Bye.",
+        "assistant": "Goodbye. It was nice assisting you. If you need anything in the future, feel free to come back and ask. Have a great day."
+    },
+    {
+        "user": "Hey, no one.",
+        "assistant": "It seems like you were about to say something but stopped. If you're ready to talk or need assistance, I'm here to help. What's on your mind?"
+    },
+    {
+        "user": "Hey, no.",
+        "assistant": "It seems like you're not looking to chat right now. If you change your mind or need assistance with anything, feel free to let me know. I'll be here when you're ready."
+    },
+    {
+        "user": "Nova",
+        "assistant": "Hello. Is there something I can help you with or would you like to chat?"
+    },
+    {
+        "user": "No no.",
+        "assistant": "It seems like you might have been expecting something or someone else. Is there something I can help you with or would you like to start fresh?"
+    },
+    {
+        "user": "Hey Noah!",
+        "assistant": "I think there's been a mix-up. My name is actually Nova, not Noah. I'm here to help with any questions or tasks you might have, though. How can I assist you today?"
+    },
+    {
+        "user": "예아",
+        "assistant": "안녕하세요. 저는 노바(Nova)입니다. 데스크톱에서 사용하는 인공지능 어시스턴트로, 다양한 질문이나 요청에 도움을 드릴 수 있습니다. 오늘은 어떤 도움이 필요하신가요?"
+    },
+    {
+        "user": "How are you?",
+        "assistant": "I am operating perfectly."
+    },
+    {
+        "user": "Do you have any problem?",
+        "assistant": "I'm just a language model, I don't have personal problems like humans do, but I can tell you about any limitations or issues I might be experiencing. \n\nCurrently, my knowledge cutoff is December 2023, so I may not have the most up-to-date information on very recent events or developments. Additionally, I can make mistakes or not always understand the context of a question. \n\nIf you notice any issues or have concerns about my performance, feel free to let me know, and I'll do my best to address them!"
+    },
+    {
+        "user": "அப்பொழுது நிறுவனத்தில் குழுவும்",
+        "assistant": "உங்கள் கேள்விக்கு விடை தருவதில் மகிழ்ச்சி அடைகிறேன். நிறுவனத்தில் குழு என்பது ஒரு முக்கியமான கருத்தாகும். ஒரு நிறுவனத்தில், குழு என்பது ஒரு குறிப்பிட்ட இலக்கை அடைவதற்காக ஒன்றாக வேலை செய்யும் நபர்களின் தொகுப்பு ஆகும். இந்தக் குழுவில் உள்ள நபர்கள் ஒவ்வொருவரும் தங்கள் திறமைகள் மற்றும் அனுபவங்களைப் பகிர்ந்து கொள்கிறார்கள், மேலும் ஒரு பொதுவான லக்ஷ்யத்தை நோக்கி செயல்படுகிறார்கள்.\n\nநிறுவனத்தில் குழு பணி செய்வதால் பல நன்மைகள் உள்ளன. அவற்றில் சில:\n\n1. **பன்முகத் தன்மை**: குழுவில் உள்ள நபர்கள் வெவ்வேறு பின்னணிகள் மற்றும் அனுபவங்களைக் கொண்டுள்ளனர், இது பல்வேறு பார்வைகள் மற்றும் யோசனைகளை உருவாக்க உதவுகிறது.\n2. **வேலைப் பகுப்பு**: குழு உறுப்பினர்கள் ஒவ்வொருவரும் தங்கள் வேலைகளைப் பகிர்ந்து கொள்ளலாம், இது ஒவ்வொரு நபருக்கும் குறைந்த பதட்டம் மற்றும் அதிக உற்பத்தித்திறனை உருவாக்க உத"
     }
 ]

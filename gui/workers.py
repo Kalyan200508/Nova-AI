@@ -1,6 +1,6 @@
 from PySide6.QtCore import QObject, Signal, Slot
 
-from core.controller import controller
+from voice.controller import controller
 
 
 class VoiceWorker(QObject):

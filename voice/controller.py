@@ -1,10 +1,12 @@
-from core.listen import listener
+from voice.listen import listener
 from core.router import router
-from core.speech import speech
+from voice.speech import speech
 
 
 class Controller:
+
     def process_voice(self):
+
         text = listener.listen()
 
         if not text:
@@ -16,7 +18,8 @@ class Controller:
             speech.speak("Goodbye.")
             return text, "__EXIT__"
 
-        speech.speak(reply)
+        if reply:
+            speech.speak(reply)
 
         return text, reply
 

@@ -7,32 +7,35 @@ import sounddevice as sd
 from faster_whisper import WhisperModel
 
 
+SAMPLE_RATE = 16000
+CHANNELS = 1
+RECORD_SECONDS = 3
+
+
 class Listener:
 
     def __init__(self):
 
         print("Loading Whisper model...")
 
-        # tiny is much faster for wake-word detection
         self.model = WhisperModel(
-            "tiny",
+            "small",
             device="cpu",
             compute_type="int8",
         )
 
-        # None = default microphone
         self.device = None
 
         print("Whisper loaded.")
 
-    def listen(self, duration=2, sample_rate=16000):
+    def listen(self):
 
         print("\n🎤 Listening...")
 
         recording = sd.rec(
-            int(duration * sample_rate),
-            samplerate=sample_rate,
-            channels=1,
+            int(RECORD_SECONDS * SAMPLE_RATE),
+            samplerate=SAMPLE_RATE,
+            channels=CHANNELS,
             dtype=np.int16,
             device=self.device,
         )
@@ -44,48 +47,47 @@ class Listener:
             suffix=".wav",
         )
 
-        temp_name = temp.name
-
+        filename = temp.name
         temp.close()
 
-        with wave.open(temp_name, "wb") as wf:
-
-            wf.setnchannels(1)
-
+        with wave.open(filename, "wb") as wf:
+            wf.setnchannels(CHANNELS)
             wf.setsampwidth(2)
-
-            wf.setframerate(sample_rate)
-
+            wf.setframerate(SAMPLE_RATE)
             wf.writeframes(recording.tobytes())
 
         try:
 
             segments, info = self.model.transcribe(
-                temp_name,
+                filename,
                 beam_size=1,
                 vad_filter=True,
-                language="en",
+                language=None,
             )
 
-            text = ""
-
-            for segment in segments:
-                text += segment.text + " "
-
-            text = text.strip()
+            text = " ".join(
+                segment.text.strip()
+                for segment in segments
+            ).strip()
 
             print("=" * 50)
             print("Language :", info.language)
-            print("Text     :", repr(text))
+            print("Confidence :", round(info.language_probability, 3))
+            print("Text :", repr(text))
             print("=" * 50)
 
             return text
 
+        except Exception as e:
+
+            print(f"Speech Recognition Error: {e}")
+            return ""
+
         finally:
 
             try:
-                os.remove(temp_name)
-            except Exception:
+                os.remove(filename)
+            except OSError:
                 pass
 
 
