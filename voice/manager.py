@@ -8,6 +8,14 @@ from voice.conversation import conversation
 
 class VoiceManager:
 
+    def __init__(self):
+
+        self.running = True
+
+    def stop(self):
+
+        self.running = False
+
     def run(self):
 
         print()
@@ -15,9 +23,12 @@ class VoiceManager:
         print("NOVA Voice Engine Started")
         print("=" * 50)
 
-        while True:
+        while self.running:
 
             text = listener.listen()
+
+            if not self.running:
+                break
 
             if not text:
                 continue
@@ -27,6 +38,7 @@ class VoiceManager:
             # -----------------------------
             # Sleeping
             # -----------------------------
+
             if not conversation.awake():
 
                 if wakeword.detect(text):
@@ -41,6 +53,7 @@ class VoiceManager:
             # -----------------------------
             # User is talking
             # -----------------------------
+
             conversation.touch()
 
             reply = router.process(text)
@@ -48,22 +61,20 @@ class VoiceManager:
             if reply == "__EXIT__":
 
                 speech.speak("Goodbye.")
-
                 break
 
             if reply:
 
                 print(f"Nova : {reply}")
-
                 speech.speak(reply)
 
             # -----------------------------
             # Timeout
             # -----------------------------
+
             if conversation.sleeping():
 
                 print("Nova : Going back to sleep.")
-
                 speech.speak("Going back to sleep.")
 
 

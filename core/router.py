@@ -1,6 +1,9 @@
 import re
+import string
 
 from ai.provider import ai
+from browser.web import browser
+from desktop.launcher import launcher
 
 from core.brain import brain
 from core.memory import memory
@@ -94,6 +97,109 @@ class Router:
                         context.set_app(command.target)
 
                 return self.finish(text, reply)
+         # -----------------------------
+         # Desktop Launche
+         # -----------------------------
+
+        lower = text.lower()
+
+        open_words = (
+            "open ",
+            "launch ",
+            "start ",
+            "run ",
+        )
+
+        if lower.startswith(open_words):
+
+            target = lower
+
+            for word in open_words:
+                if target.startswith(word):
+                    target = target[len(word):]
+                    break
+
+            target = (
+                 target
+                 .replace("google ", "")
+                 .replace("microsoft ", "")
+                 .replace("the ", "")
+                 .strip(" .,!?")
+                 .lower()
+            )
+            
+            print("=" * 50)
+            print("Launcher Target :", repr(target))
+            print("=" * 50)
+
+            reply = launcher.open(target)
+
+            if reply and not reply.startswith("I don't know"):
+
+                return self.finish(text, reply)
+            
+         # -----------------------------
+         # Browser Websites
+         # -----------------------------
+
+        websites = [
+            "google",
+            "youtube",
+            "github",
+            "chatgpt",
+            "gmail",
+            "linkedin",
+            "instagram",
+            "facebook",
+            "reddit",
+            "stackoverflow",
+            "twitter",
+            "x",
+        ]
+
+        for site in websites:
+
+            if lower == f"open {site}":
+
+                reply = browser.open(site)
+
+                return self.finish(text, reply)
+            
+         # -----------------------------
+         # Browser Search
+         # -----------------------------
+
+        if lower.startswith("search google for "):
+
+            query = text[len("search google for "):]
+
+            reply = browser.search_google(query)
+
+            return self.finish(text, reply)
+
+        if lower.startswith("search youtube for "):
+
+            query = text[len("search youtube for "):]
+
+            reply = browser.search_youtube(query)
+
+            return self.finish(text, reply)
+
+        if lower.startswith("search github for "):
+
+            query = text[len("search github for "):]
+
+            reply = browser.search_github(query)
+
+            return self.finish(text, reply)
+
+        if lower.startswith("search stackoverflow for "):
+
+            query = text[len("search stackoverflow for "):]
+
+            reply = browser.search_stackoverflow(query)
+
+            return self.finish(text, reply)
 
         # -----------------------------
         # Offline Brain

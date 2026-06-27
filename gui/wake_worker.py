@@ -8,3 +8,6 @@ class WakeWorker(QObject):
     @Slot()
     def run(self):
         voice_manager.run()
+
+    def stop(self):
+        voice_manager.stop()

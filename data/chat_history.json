@@ -186,5 +186,37 @@
     {
         "user": "Open Google Chrome.",
         "assistant": "I'm not capable of directly interacting with your computer or opening applications like Google Chrome. I exist solely as a text-based AI assistant and don't have the ability to access or control your device.\n\nHowever, I can guide you through the process of opening Google Chrome. If you're using a Windows computer, you can press the Windows key + R to open the Run dialog box, type \"chrome\" and press Enter. Alternatively, you can search for Google Chrome in your Start menu and click on the icon to open it.\n\nIf you're using a Mac, you can use Spotlight search to find Google Chrome, or navigate to the Applications folder and click on the Google Chrome icon.\n\nLet me know if you need further assistance!"
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "I'm not capable of directly interacting with your computer or opening applications like Chrome. I exist solely as a text-based AI assistant and don't have the ability to access or control your device.\n\nHowever, I can guide you through the process of opening Chrome. If you're using a Windows computer, you can press the Windows key + R to open the Run dialog box, type \"chrome\" and press Enter. Alternatively, you can search for Chrome in your Start menu and click on the icon to open it.\n\nIf you're using a Mac, you can use Spotlight to search for Chrome and open it, or navigate to the Applications folder and find Chrome in the list of installed apps.\n\nLet me know if you need further assistance!"
+    },
+    {
+        "user": "Launch Chrome!",
+        "assistant": "I'm not capable of directly interacting with your computer or launching applications like Google Chrome. I exist solely as a text-based AI assistant and don't have the ability to access or control your device.\n\nHowever, I can guide you through the process of launching Chrome. If you're using a Windows computer, you can press the Windows key + R to open the Run dialog box, type \"chrome\" and press Enter. On a Mac, you can use Spotlight search by pressing Command + Space and typing \"Chrome\" to find and open the application.\n\nIf you need help with anything else or have any questions, feel free to ask!"
+    },
+    {
+        "user": "Open Chrome.",
+        "assistant": "Opening Chrome."
+    },
+    {
+        "user": "I am like that",
+        "assistant": "It sounds like you're saying you're similar to me, a helpful AI assistant. That's great! I'm here to assist and provide information on a wide range of topics. How can I help you today? Do you have a specific question or topic you'd like to discuss?"
+    },
+    {
+        "user": "Open YouTube.",
+        "assistant": "I'm not capable of directly opening applications or websites on your device. However, I can guide you through the process.\n\nTo open YouTube, you can:\n\n1. **Type \"youtube.com\" in your web browser's address bar** and press Enter.\n2. **Search for \"YouTube\" in your device's search bar** and click on the result.\n3. **Use a voice assistant** like Siri, Google Assistant, or Cortana to open YouTube.\n4. **Click on the YouTube app icon** if you have it installed on your device.\n\nOnce you've opened YouTube, you can browse through videos, search for specific content, or log in to your account to access your subscriptions and playlists.\n\nIs there anything specific you'd like to watch or search for on YouTube? I'm here to help!"
+    },
+    {
+        "user": "Open Chrome",
+        "assistant": "Opening Chrome."
+    },
+    {
+        "user": "Open YouTube",
+        "assistant": "Opening YouTube."
+    },
+    {
+        "user": "Open treading view.",
+        "assistant": "I'm happy to help you with that. However, I'm a large language model, I don't have the capability to directly open any views or applications on your device. But I can guide you through the process.\n\nTo open a trading view, you'll need to access a trading platform or a financial website that offers real-time market data and charts. Here are a few options:\n\n1. **TradingView**: You can visit the TradingView website ([www.tradingview.com](http://www.tradingview.com)) and log in to your account. From there, you can access various charts, indicators, and trading tools.\n2. **Financial websites**: Websites like Yahoo Finance, Google Finance, or Bloomberg offer real-time market data and charts. You can visit these websites and navigate to the trading view or chart section.\n3. **Trading platforms**: If you have a trading account with a brokerage firm, you can log in to their platform and access the trading view or chart section.\n\nPlease let me know if you need help with a specific trading platform or website, and I'll do my best to assist you."
     }
 ]

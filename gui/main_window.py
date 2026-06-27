@@ -79,12 +79,14 @@ class NovaWindow(QWidget):
         self.chat = ChatWidget()
         layout.addWidget(self.chat, 1)
 
-        # Manual speak button
+        # Manual Speak Button
         self.button = QPushButton("🎤 Speak")
         self.button.clicked.connect(self.start_listening)
         layout.addWidget(self.button)
 
         self.setLayout(layout)
+
+    # -------------------------------------------------
 
     def start_listening(self):
 
@@ -110,6 +112,8 @@ class NovaWindow(QWidget):
 
         self.thread.start()
 
+    # -------------------------------------------------
+
     def update_chat(self, user_text, reply):
 
         if user_text:
@@ -120,6 +124,8 @@ class NovaWindow(QWidget):
 
         self.status.set_status("Ready")
 
+    # -------------------------------------------------
+
     def cleanup_thread(self):
 
         self.thread = None
@@ -127,21 +133,31 @@ class NovaWindow(QWidget):
 
         self.button.setEnabled(True)
 
+    # -------------------------------------------------
+
     def closeEvent(self, event):
 
         try:
 
+            # Stop manual voice thread
             if self.thread is not None:
 
                 if self.thread.isRunning():
 
                     self.thread.quit()
-                    self.thread.wait()
+                    self.thread.wait(3000)
 
+            # Stop wake-word thread
             if self.wake_thread.isRunning():
 
+                # Tell VoiceManager to stop
+                self.wake_worker.stop()
+
+                # Stop Qt thread
                 self.wake_thread.quit()
-                self.wake_thread.wait()
+
+                # Wait for shutdown
+                self.wake_thread.wait(5000)
 
         except RuntimeError:
             pass
