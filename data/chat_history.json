@@ -178,5 +178,13 @@
     {
         "user": "Open Google Chrome.",
         "assistant": "I'm not capable of directly interacting with your computer or opening applications like Google Chrome. I'm a text-based AI assistant, and my interactions are limited to this chat interface.\n\nHowever, I can guide you through the process of opening Google Chrome on your computer. Here are the steps:\n\n1. **Windows:** Press the Windows key + R to open the Run dialog box, type \"chrome\" and press Enter.\n2. **Mac:** Use Spotlight search by pressing Command + Space, type \"Google Chrome\" and press Enter.\n3. **Alternatively:** You can also find Google Chrome in your computer's Start menu (Windows) or Applications folder (Mac) and click on it to open.\n\nIf you need help with anything else or have any questions, feel free to ask!"
+    },
+    {
+        "user": "How are you?",
+        "assistant": "I am operating perfectly."
+    },
+    {
+        "user": "Open Google Chrome.",
+        "assistant": "I'm not capable of directly interacting with your computer or opening applications like Google Chrome. I exist solely as a text-based AI assistant and don't have the ability to access or control your device.\n\nHowever, I can guide you through the process of opening Google Chrome. If you're using a Windows computer, you can press the Windows key + R to open the Run dialog box, type \"chrome\" and press Enter. Alternatively, you can search for Google Chrome in your Start menu and click on the icon to open it.\n\nIf you're using a Mac, you can use Spotlight search to find Google Chrome, or navigate to the Applications folder and click on the Google Chrome icon.\n\nLet me know if you need further assistance!"
     }
 ]

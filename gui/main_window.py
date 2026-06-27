@@ -4,7 +4,6 @@ from PySide6.QtCore import Qt, QThread
 from PySide6.QtWidgets import (
     QApplication,
     QPushButton,
-    QTextEdit,
     QVBoxLayout,
     QWidget,
 )
@@ -12,6 +11,7 @@ from PySide6.QtWidgets import (
 from gui.widgets.header import Header
 from gui.widgets.status import StatusWidget
 from gui.widgets.orb import VoiceOrb
+from gui.widgets.chat import ChatWidget
 
 from gui.workers import VoiceWorker
 from gui.wake_worker import WakeWorker
@@ -23,11 +23,12 @@ class NovaWindow(QWidget):
         super().__init__()
 
         self.setWindowTitle("NOVA AI")
-        self.resize(900, 650)
+        self.resize(900, 700)
 
         self.thread = None
         self.worker = None
 
+        # Wake-word thread
         self.wake_thread = QThread()
         self.wake_worker = WakeWorker()
 
@@ -38,14 +39,6 @@ class NovaWindow(QWidget):
         self.setStyleSheet("""
         QWidget{
             background:#10141c;
-            color:white;
-        }
-
-        QTextEdit{
-            background:#1b2230;
-            border-radius:12px;
-            padding:12px;
-            font-size:15px;
             color:white;
         }
 
@@ -64,20 +57,29 @@ class NovaWindow(QWidget):
         """)
 
         layout = QVBoxLayout()
+        layout.setContentsMargins(15, 15, 15, 15)
+        layout.setSpacing(15)
 
+        # Header
         self.header = Header()
         layout.addWidget(self.header)
 
+        # Status
         self.status = StatusWidget()
         layout.addWidget(self.status)
 
+        # Voice Orb
         self.orb = VoiceOrb()
-        layout.addWidget(self.orb, alignment=Qt.AlignCenter)
+        layout.addWidget(
+            self.orb,
+            alignment=Qt.AlignCenter,
+        )
 
-        self.chat = QTextEdit()
-        self.chat.setReadOnly(True)
-        layout.addWidget(self.chat)
+        # Chat
+        self.chat = ChatWidget()
+        layout.addWidget(self.chat, 1)
 
+        # Manual speak button
         self.button = QPushButton("🎤 Speak")
         self.button.clicked.connect(self.start_listening)
         layout.addWidget(self.button)
@@ -111,10 +113,10 @@ class NovaWindow(QWidget):
     def update_chat(self, user_text, reply):
 
         if user_text:
-            self.chat.append(f"👤 You\n{user_text}\n")
+            self.chat.add_user_message(user_text)
 
         if reply:
-            self.chat.append(f"🤖 Nova\n{reply}\n")
+            self.chat.add_nova_message(reply)
 
         self.status.set_status("Ready")
 
@@ -129,11 +131,15 @@ class NovaWindow(QWidget):
 
         try:
 
-            if self.thread is not None and self.thread.isRunning():
-                self.thread.quit()
-                self.thread.wait()
+            if self.thread is not None:
+
+                if self.thread.isRunning():
+
+                    self.thread.quit()
+                    self.thread.wait()
 
             if self.wake_thread.isRunning():
+
                 self.wake_thread.quit()
                 self.wake_thread.wait()
 
