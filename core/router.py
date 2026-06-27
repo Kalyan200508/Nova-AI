@@ -7,6 +7,9 @@ from controllers.browser import browser_controller
 from controllers.launcher import launcher_controller
 from controllers.system import system_controller
 
+from core.intent.engine import intent_engine
+from core.intent.parser import command_parser
+
 from core.brain import brain
 from core.memory import memory
 from core.facts import facts
@@ -22,10 +25,33 @@ from planner.executor import executor
 
 class Router:
 
+    # ====================================================
+    # Public Entry
+    # ====================================================
+
     def process(self, text):
 
         if not text:
             return "I didn't hear anything."
+
+        commands = command_parser.split(text)
+
+        last_reply = None
+
+        for command in commands:
+
+            last_reply = self.process_single(command)
+
+            if last_reply == "__EXIT__":
+                return "__EXIT__"
+
+        return last_reply
+
+    # ====================================================
+    # Single Command Processor
+    # ====================================================
+
+    def process_single(self, text):
 
         text = text.strip()
 
@@ -36,7 +62,7 @@ class Router:
         )
 
         # -----------------------------
-        # Save User Message
+        # Save Conversation
         # -----------------------------
 
         conversation.add_user(text)
@@ -60,9 +86,10 @@ class Router:
 
             session.set("user_name", name)
 
-            reply = f"I'll remember that. Your name is {name}."
-
-            return self.finish(text, reply)
+            return self.finish(
+                text,
+                f"I'll remember that. Your name is {name}.",
+            )
 
         # -----------------------------
         # Recall Name
@@ -84,31 +111,43 @@ class Router:
             return self.finish(text, reply)
 
         # -----------------------------
-        # Browser Controller
+        # Intent Detection
         # -----------------------------
 
-        reply = browser_controller.handle(text)
-
-        if reply:
-            return self.finish(text, reply)
+        intent = intent_engine.detect(text)
 
         # -----------------------------
-        # Launcher Controller
+        # Browser
         # -----------------------------
 
-        reply = launcher_controller.handle(text)
+        if intent.domain == "browser":
 
-        if reply:
-            return self.finish(text, reply)
+            reply = browser_controller.handle(text)
+
+            if reply:
+                return self.finish(text, reply)
 
         # -----------------------------
-        # System Controller
+        # Launcher
         # -----------------------------
 
-        reply = system_controller.handle(text)
+        elif intent.domain == "launcher":
 
-        if reply:
-            return self.finish(text, reply)
+            reply = launcher_controller.handle(text)
+
+            if reply:
+                return self.finish(text, reply)
+
+        # -----------------------------
+        # System
+        # -----------------------------
+
+        elif intent.domain == "system":
+
+            reply = system_controller.handle(text)
+
+            if reply:
+                return self.finish(text, reply)
 
         # -----------------------------
         # Planner
@@ -127,7 +166,6 @@ class Router:
                     command = plan.commands[0]
 
                     if command.action == "OPEN":
-
                         context.set_app(command.target)
 
                 return self.finish(text, reply)
@@ -145,7 +183,7 @@ class Router:
             return self.finish(text, reply)
 
         # -----------------------------
-        # NVIDIA AI
+        # AI Fallback
         # -----------------------------
 
         reply = ai.ask(text)
@@ -155,9 +193,9 @@ class Router:
 
         return "I couldn't answer that."
 
-    # -----------------------------
-    # Finish Response
-    # -----------------------------
+    # ====================================================
+    # Finish
+    # ====================================================
 
     def finish(self, user, reply):
 
