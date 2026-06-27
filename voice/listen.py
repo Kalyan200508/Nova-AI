@@ -10,6 +10,8 @@ from faster_whisper import WhisperModel
 SAMPLE_RATE = 16000
 CHANNELS = 1
 RECORD_SECONDS = 3
+LANGUAGE = "en"
+MIN_CONFIDENCE = 0.50
 
 
 class Listener:
@@ -24,6 +26,7 @@ class Listener:
             compute_type="int8",
         )
 
+        # None = Default Microphone
         self.device = None
 
         print("Whisper loaded.")
@@ -62,7 +65,7 @@ class Listener:
                 filename,
                 beam_size=1,
                 vad_filter=True,
-                language=None,
+                language=LANGUAGE,
             )
 
             text = " ".join(
@@ -71,10 +74,18 @@ class Listener:
             ).strip()
 
             print("=" * 50)
-            print("Language :", info.language)
-            print("Confidence :", round(info.language_probability, 3))
-            print("Text :", repr(text))
+            print("Configured Language :", LANGUAGE)
+            print("Detected Language   :", info.language)
+            print("Confidence          :", round(info.language_probability, 3))
+            print("Text                :", repr(text))
             print("=" * 50)
+
+            if not text:
+                return ""
+
+            if info.language_probability < MIN_CONFIDENCE:
+                print("Low confidence. Ignoring...")
+                return ""
 
             return text
 

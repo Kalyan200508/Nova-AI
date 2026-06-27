@@ -166,5 +166,17 @@
     {
         "user": "அப்பொழுது நிறுவனத்தில் குழுவும்",
         "assistant": "உங்கள் கேள்விக்கு விடை தருவதில் மகிழ்ச்சி அடைகிறேன். நிறுவனத்தில் குழு என்பது ஒரு முக்கியமான கருத்தாகும். ஒரு நிறுவனத்தில், குழு என்பது ஒரு குறிப்பிட்ட இலக்கை அடைவதற்காக ஒன்றாக வேலை செய்யும் நபர்களின் தொகுப்பு ஆகும். இந்தக் குழுவில் உள்ள நபர்கள் ஒவ்வொருவரும் தங்கள் திறமைகள் மற்றும் அனுபவங்களைப் பகிர்ந்து கொள்கிறார்கள், மேலும் ஒரு பொதுவான லக்ஷ்யத்தை நோக்கி செயல்படுகிறார்கள்.\n\nநிறுவனத்தில் குழு பணி செய்வதால் பல நன்மைகள் உள்ளன. அவற்றில் சில:\n\n1. **பன்முகத் தன்மை**: குழுவில் உள்ள நபர்கள் வெவ்வேறு பின்னணிகள் மற்றும் அனுபவங்களைக் கொண்டுள்ளனர், இது பல்வேறு பார்வைகள் மற்றும் யோசனைகளை உருவாக்க உதவுகிறது.\n2. **வேலைப் பகுப்பு**: குழு உறுப்பினர்கள் ஒவ்வொருவரும் தங்கள் வேலைகளைப் பகிர்ந்து கொள்ளலாம், இது ஒவ்வொரு நபருக்கும் குறைந்த பதட்டம் மற்றும் அதிக உற்பத்தித்திறனை உருவாக்க உத"
+    },
+    {
+        "user": "How are you?",
+        "assistant": "I am operating perfectly."
+    },
+    {
+        "user": "تل میہ جوک",
+        "assistant": "کیا آپ کو تل میہ جوک پسند ہے؟ یہاں ایک ہے:\nتل میہ: میں نے اپنی بیوی کو ایک گھڑی دی، اور اب وہ میرے ساتھ وقت گزارنا پسند کرتی ہے۔"
+    },
+    {
+        "user": "Open Google Chrome.",
+        "assistant": "I'm not capable of directly interacting with your computer or opening applications like Google Chrome. I'm a text-based AI assistant, and my interactions are limited to this chat interface.\n\nHowever, I can guide you through the process of opening Google Chrome on your computer. Here are the steps:\n\n1. **Windows:** Press the Windows key + R to open the Run dialog box, type \"chrome\" and press Enter.\n2. **Mac:** Use Spotlight search by pressing Command + Space, type \"Google Chrome\" and press Enter.\n3. **Alternatively:** You can also find Google Chrome in your computer's Start menu (Windows) or Applications folder (Mac) and click on it to open.\n\nIf you need help with anything else or have any questions, feel free to ask!"
     }
 ]

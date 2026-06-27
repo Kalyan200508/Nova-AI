@@ -1,33 +1,33 @@
 import sys
 
 from PySide6.QtCore import Qt, QThread
-from PySide6.QtGui import QFont
 from PySide6.QtWidgets import (
     QApplication,
-    QLabel,
     QPushButton,
     QTextEdit,
     QVBoxLayout,
     QWidget,
 )
 
+from gui.widgets.header import Header
+from gui.widgets.status import StatusWidget
+from gui.widgets.orb import VoiceOrb
+
 from gui.workers import VoiceWorker
 from gui.wake_worker import WakeWorker
 
 
-class JarvisWindow(QWidget):
+class NovaWindow(QWidget):
 
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("JARVIS AI")
-        self.resize(900, 600)
+        self.setWindowTitle("NOVA AI")
+        self.resize(900, 650)
 
-        # Manual voice thread
         self.thread = None
         self.worker = None
 
-        # Background wake thread
         self.wake_thread = QThread()
         self.wake_worker = WakeWorker()
 
@@ -43,8 +43,8 @@ class JarvisWindow(QWidget):
 
         QTextEdit{
             background:#1b2230;
-            border-radius:10px;
-            padding:10px;
+            border-radius:12px;
+            padding:12px;
             font-size:15px;
             color:white;
         }
@@ -61,23 +61,18 @@ class JarvisWindow(QWidget):
         QPushButton:hover{
             background:#009ACD;
         }
-
-        QLabel{
-            color:white;
-            font-size:16px;
-        }
         """)
 
         layout = QVBoxLayout()
 
-        title = QLabel("NOVA AI")
-        title.setAlignment(Qt.AlignCenter)
-        title.setFont(QFont("Segoe UI", 30))
-        layout.addWidget(title)
+        self.header = Header()
+        layout.addWidget(self.header)
 
-        self.status = QLabel("Status : Ready")
-        self.status.setAlignment(Qt.AlignCenter)
+        self.status = StatusWidget()
         layout.addWidget(self.status)
+
+        self.orb = VoiceOrb()
+        layout.addWidget(self.orb, alignment=Qt.AlignCenter)
 
         self.chat = QTextEdit()
         self.chat.setReadOnly(True)
@@ -94,7 +89,7 @@ class JarvisWindow(QWidget):
         if self.thread is not None:
             return
 
-        self.status.setText("Status : Listening...")
+        self.status.set_status("Listening")
         self.button.setEnabled(False)
 
         self.thread = QThread()
@@ -116,23 +111,24 @@ class JarvisWindow(QWidget):
     def update_chat(self, user_text, reply):
 
         if user_text:
-            self.chat.append(f"You : {user_text}")
+            self.chat.append(f"👤 You\n{user_text}\n")
 
         if reply:
-            self.chat.append(f"Nova : {reply}")
+            self.chat.append(f"🤖 Nova\n{reply}\n")
 
-        self.chat.append("")
-        self.status.setText("Status : Ready")
+        self.status.set_status("Ready")
 
     def cleanup_thread(self):
 
         self.thread = None
         self.worker = None
+
         self.button.setEnabled(True)
 
     def closeEvent(self, event):
 
         try:
+
             if self.thread is not None and self.thread.isRunning():
                 self.thread.quit()
                 self.thread.wait()
@@ -151,7 +147,8 @@ def start_gui():
 
     app = QApplication(sys.argv)
 
-    window = JarvisWindow()
+    window = NovaWindow()
+
     window.show()
 
     sys.exit(app.exec())
