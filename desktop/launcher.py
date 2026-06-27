@@ -1,89 +1,54 @@
-import os
-import subprocess
-from pathlib import Path
+from desktop.apps.windows import windows_apps
+from desktop.apps.browsers import browser_apps
+
+# We'll add these in the next steps
+try:
+    from desktop.apps.development import development_apps
+except ImportError:
+    development_apps = None
+
+try:
+    from desktop.apps.folders import folder_apps
+except ImportError:
+    folder_apps = None
+
+try:
+    from desktop.apps.office import office_apps
+except ImportError:
+    office_apps = None
+
+try:
+    from desktop.apps.media import media_apps
+except ImportError:
+    media_apps = None
 
 
 class DesktopLauncher:
-
-    APPS = {
-        "chrome": [
-            r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-            r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-        ],
-
-        "vscode": [
-            r"C:\Users\Kalyan\AppData\Local\Programs\Microsoft VS Code\Code.exe",
-            r"C:\Program Files\Microsoft VS Code\Code.exe",
-        ],
-
-        "notepad": [
-            "notepad.exe",
-        ],
-
-        "calculator": [
-            "calc.exe",
-        ],
-
-        "explorer": [
-            "explorer.exe",
-        ],
-    }
-
-    FOLDERS = {
-        "downloads": Path.home() / "Downloads",
-        "documents": Path.home() / "Documents",
-        "desktop": Path.home() / "Desktop",
-        "pictures": Path.home() / "Pictures",
-    }
 
     def open(self, target: str):
 
         target = target.lower().strip()
 
-        # ---------------------------
-        # Open folders
-        # ---------------------------
+        modules = [
+            windows_apps,
+            browser_apps,
+            development_apps,
+            folder_apps,
+            office_apps,
+            media_apps,
+        ]
 
-        if target in self.FOLDERS:
+        for module in modules:
 
-            path = self.FOLDERS[target]
+            if module is None:
+                continue
 
-            if path.exists():
-                os.startfile(path)
-                return f"Opening {target.title()}."
+            result = module.open(target)
 
-            return f"{target.title()} folder not found."
+            if result is not None:
+                return result
 
-        # ---------------------------
-        # Open applications
-        # ---------------------------
-
-        if target in self.APPS:
-
-            for app in self.APPS[target]:
-
-                try:
-
-                    if app.endswith(".exe"):
-
-                        if os.path.exists(app):
-
-                            subprocess.Popen(app)
-
-                            return f"Opening {target.title()}."
-
-                    else:
-
-                        subprocess.Popen(app)
-
-                        return f"Opening {target.title()}."
-
-                except Exception:
-                    continue
-
-            return f"{target.title()} is not installed."
-
-        return None
+        return f"I don't know how to open '{target}' yet."
 
 
 launcher = DesktopLauncher()
