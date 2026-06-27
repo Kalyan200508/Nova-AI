@@ -2,9 +2,10 @@ import re
 import string
 
 from ai.provider import ai
-from browser.web import browser
-from desktop.launcher import launcher
-from system.controller import system
+
+from controllers.browser import browser_controller
+from controllers.launcher import launcher_controller
+from controllers.system import system_controller
 
 from core.brain import brain
 from core.memory import memory
@@ -45,101 +46,69 @@ class Router:
         # Learn Name
         # -----------------------------
 
-        match = re.search(r"my name is (.+)", text, re.IGNORECASE)
+        match = re.search(
+            r"my name is (.+)",
+            text,
+            re.IGNORECASE,
+        )
 
         if match:
+
             name = match.group(1).strip()
+
             facts.remember("name", name)
+
             session.set("user_name", name)
+
             reply = f"I'll remember that. Your name is {name}."
+
             return self.finish(text, reply)
 
         # -----------------------------
         # Recall Name
         # -----------------------------
 
-        if re.search(r"what is my name", text, re.IGNORECASE):
+        if re.search(
+            r"what is my name",
+            text,
+            re.IGNORECASE,
+        ):
+
             name = facts.recall("name")
-            reply = f"Your name is {name}." if name else "I don't know your name yet."
+
+            if name:
+                reply = f"Your name is {name}."
+            else:
+                reply = "I don't know your name yet."
+
             return self.finish(text, reply)
 
         # -----------------------------
-        # Browser
+        # Browser Controller
         # -----------------------------
 
-        reply = browser.handle(text)
+        reply = browser_controller.handle(text)
 
         if reply:
             return self.finish(text, reply)
 
         # -----------------------------
-        # Desktop Launcher
+        # Launcher Controller
         # -----------------------------
 
-        open_words = ("open ", "launch ", "start ", "run ")
+        reply = launcher_controller.handle(text)
 
-        if lower.startswith(open_words):
-
-            target = lower
-
-            for word in open_words:
-                if target.startswith(word):
-                    target = target[len(word):]
-                    break
-
-            target = (
-                target
-                .replace("google ", "")
-                .replace("microsoft ", "")
-                .replace("the ", "")
-                .strip()
-            )
-
-            reply = launcher.open(target)
-
-            if reply and not reply.startswith("I don't know"):
-                return self.finish(text, reply)
+        if reply:
+            return self.finish(text, reply)
 
         # -----------------------------
-        # System Controls
+        # System Controller
         # -----------------------------
 
-        system_commands = {
-            "lock":                      "lock",
-            "lock pc":                   "lock",
-            "lock computer":             "lock",
-            "lock my pc":                "lock",
-            "lock my computer":          "lock",
+        reply = system_controller.handle(text)
 
-            "sleep":                     "sleep",
-            "sleep pc":                  "sleep",
-            "put the computer to sleep": "sleep",
-            "put my computer to sleep":  "sleep",
-
-            "logout":                    "logout",
-            "log out":                   "logout",
-            "sign out":                  "logout",
-            "log me out":                "logout",
-
-            "restart":                   "restart",
-            "restart pc":                "restart",
-            "restart computer":          "restart",
-            "restart my computer":       "restart",
-            "restart my pc":             "restart",
-
-            "shutdown":                  "shutdown",
-            "shut down":                 "shutdown",
-            "shutdown pc":               "shutdown",
-            "shutdown computer":         "shutdown",
-            "power off":                 "shutdown",
-        }
-
-        command = system_commands.get(lower)
-
-        if command:
-            reply = system.execute(command)
-            if reply:
-                return self.finish(text, reply)
+        if reply:
+            return self.finish(text, reply)
 
         # -----------------------------
         # Planner
@@ -154,8 +123,11 @@ class Router:
             if reply:
 
                 if plan.commands:
+
                     command = plan.commands[0]
+
                     if command.action == "OPEN":
+
                         context.set_app(command.target)
 
                 return self.finish(text, reply)
@@ -188,10 +160,15 @@ class Router:
     # -----------------------------
 
     def finish(self, user, reply):
+
         memory.save(user, reply)
+
         session.set("last_reply", reply)
+
         conversation.add_assistant(reply)
+
         history.add(user, reply)
+
         return reply
 
 
